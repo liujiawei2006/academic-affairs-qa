@@ -1,0 +1,10 @@
+{"id": 1, "question": "一等奖学金的绩点要求是多少？", "answer": "根据《XX大学奖学金评定办法》，一等奖学金要求平均学分绩点不低于3.8。", "difficulty": "simple", "category": "奖学金", "is_table_question": false, "source_tags": ["奖学金"]}
+{"id": 2, "question": "转专业需要满足哪些条件？", "answer": "转专业需满足以下条件：1）大一学年平均学分绩点排名在本专业前30%；2）无不及格课程；3）未受过纪律处分；4）通过接收学院组织的考核。", "difficulty": "multi_section", "category": "转专业", "is_table_question": false, "source_tags": ["转专业", "学籍"]}
+{"id": 3, "question": "挂过1门课还能不能评奖学金？", "answer": "不能。根据规定，评奖学年内有不及格课程（含已重修通过的）的学生，不得参评各类奖学金。", "difficulty": "table_reasoning", "category": "奖学金", "is_table_question": true, "source_tags": ["奖学金"]}
+{"id": 4, "question": "这门课算哪个模块的学分？", "answer": "请提供具体课程名称，我可以帮您查询该课程属于培养方案中的哪个课程模块（通识教育、学科基础、专业核心等）。", "difficulty": "table_reasoning", "category": "培养方案", "is_table_question": true, "source_tags": ["培养方案"]}
+{"id": 5, "question": "补考和重修有什么区别？", "answer": "补考是针对期末考试不及格学生的免费补考机会，通过后可获得原学分；重修是补考仍不及格或自愿提高成绩时重新修读课程，需缴纳学分学费。", "difficulty": "simple", "category": "考试", "is_table_question": false, "source_tags": ["考试", "学籍"]}
+{"id": 6, "question": "国家奖学金一年多少钱？", "answer": "国家奖学金每人每年8000元，国家励志奖学金每人每年5000元。", "difficulty": "simple", "category": "奖学金", "is_table_question": true, "source_tags": ["奖学金"]}
+{"id": 7, "question": "休学最多能休几年？", "answer": "学生休学一般以一年为期，累计不得超过两年。创业休学可延长至四年。", "difficulty": "simple", "category": "学籍", "is_table_question": false, "source_tags": ["学籍"]}
+{"id": 8, "question": "毕业需要修满多少学分？", "answer": "各专业毕业学分要求不同，请查看对应专业的培养方案。一般四年制本科需修满160-180学分。", "difficulty": "table_reasoning", "category": "培养方案", "is_table_question": true, "source_tags": ["培养方案"]}
+{"id": 9, "question": "选课什么时候开始？", "answer": "选课一般分为预选、正选、补退选三个阶段。具体时间请查看教务处发布的选课通知。", "difficulty": "simple", "category": "选课", "is_table_question": false, "source_tags": ["选课"]}
+{"id": 10, "question": "必修课挂科了怎么办？", "answer": "必修课挂科后，首先参加补考；补考仍不及格的，必须重修该课程。", "difficulty": "simple", "category": "考试", "is_table_question": false, "source_tags": ["考试", "学籍"]}

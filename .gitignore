@@ -3,5 +3,6 @@
 __pycache__/
 *.pyc
 .env
-milvus_demo.db/
+milvus_*.db/
+_tmp/
 *.iml
