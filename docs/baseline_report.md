@@ -7,7 +7,7 @@
 
 - **top1_recall**: 72.00%
 - **top1_table_recall**: 93.33%
-- **top3_recall**: 88.00%
+- **top3_recall**: 92.00%
 - **top3_table_recall**: 93.33%
 - **top5_recall**: 92.00%
 - **top5_table_recall**: 93.33%
