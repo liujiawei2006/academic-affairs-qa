@@ -501,7 +501,6 @@ class StructureMarker:
 
         return "\n".join(result)
 
-
 class MetadataExtractor:
     """元数据提取器：来源、页码、更新时间、业务标签。"""
 

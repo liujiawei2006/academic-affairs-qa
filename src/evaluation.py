@@ -30,21 +30,31 @@ def evaluate_recall(
 
     for item in dataset:
         question = item["question"]
+        # 优先使用 source_file（文档级），回退到 source_tags（标签级）
+        source_files = set(item.get("source_files", []))
         source_tags = set(item.get("source_tags", []))
+        use_file_level = len(source_files) > 0
 
         for k in top_k_list:
             docs = retriever.invoke(question)
             retrieved = docs[:k]
 
-            # 检查召回的文档是否包含相关标签
-            retrieved_tags = set()
-            for doc in retrieved:
-                tag = doc.metadata.get("business_tag", "")
-                if tag:
-                    retrieved_tags.add(tag)
-
-            # 判断是否命中（有交集）
-            is_hit = len(source_tags & retrieved_tags) > 0
+            if use_file_level:
+                # 文档级匹配：检索到的分片必须来自正确的源文档
+                retrieved_files = set()
+                for doc in retrieved:
+                    sf = doc.metadata.get("source_file", "")
+                    if sf:
+                        retrieved_files.add(sf)
+                is_hit = len(source_files & retrieved_files) > 0
+            else:
+                # 回退：标签级匹配（兼容旧格式）
+                retrieved_tags = set()
+                for doc in retrieved:
+                    tag = doc.metadata.get("business_tag", "")
+                    if tag:
+                        retrieved_tags.add(tag)
+                is_hit = len(source_tags & retrieved_tags) > 0
 
             results[k]["total"] += 1
             if is_hit:

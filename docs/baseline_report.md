@@ -1,16 +1,16 @@
 # 基线评估报告
 
 **评估时间**: 自动生成
-**测试集规模**: 10 条（表格类 4 条）
+**测试集规模**: 50 条（表格类 15 条）
 
 ## 召回率
 
-- **top1_recall**: 20.00%
-- **top1_table_recall**: 50.00%
-- **top3_recall**: 20.00%
-- **top3_table_recall**: 50.00%
-- **top5_recall**: 20.00%
-- **top5_table_recall**: 50.00%
+- **top1_recall**: 72.00%
+- **top1_table_recall**: 93.33%
+- **top3_recall**: 88.00%
+- **top3_table_recall**: 93.33%
+- **top5_recall**: 92.00%
+- **top5_table_recall**: 93.33%
 
 ## 分析
 
