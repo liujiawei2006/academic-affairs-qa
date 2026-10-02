@@ -200,12 +200,17 @@ def build_embeddings() -> SiliconFlowEmbeddings:
 
 
 def build_vector_store(chunks: list[DocumentChunk], drop_old: bool = True) -> Milvus:
-    """将文档片段存入 Milvus，支持业务标签字段。"""
+    """将文档片段存入 Milvus，支持业务标签字段。
+
+    副作用：同时把 chunk 语料离线导出到 data/processed/chunks.json，
+    供 BM25 等不依赖 Milvus 的检索器复用。
+    """
     import json
     from langchain_core.documents import Document
 
     docs = []
-    for chunk in chunks:
+    chunk_records = []  # 离线语料，用于 BM25 建索引
+    for idx, chunk in enumerate(chunks):
         # 过滤空内容
         if not chunk.content.strip():
             continue
@@ -227,6 +232,22 @@ def build_vector_store(chunks: list[DocumentChunk], drop_old: bool = True) -> Mi
             metadata=metadata,
         )
         docs.append(doc)
+
+        # 生成 chunk_id（source_file + 序号），作为多路召回融合时的唯一标识
+        chunk_records.append({
+            "chunk_id": f"{chunk.source_file}__chunk_{idx}",
+            "text": chunk.content,
+            "source_file": chunk.source_file,
+            "metadata": metadata,
+        })
+
+    # 离线导出 chunk 语料（BM25 建索引不必依赖 Milvus 查询）
+    processed_dir = Path("data/processed")
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    chunks_json_path = processed_dir / "chunks.json"
+    with open(chunks_json_path, "w", encoding="utf-8") as f:
+        json.dump(chunk_records, f, ensure_ascii=False, indent=2)
+    print(f"✅ chunk 语料已导出: {chunks_json_path}（{len(chunk_records)} 条）")
 
     # 创建 Milvus 向量库
     vectorstore = Milvus.from_documents(

@@ -1,0 +1,1423 @@
+{
+  "label": "rrf_k20",
+  "dataset_path": "tests/golden_dataset.jsonl",
+  "mode": "rrf",
+  "config": {
+    "k": 20
+  },
+  "recall": {
+    "top1_recall": 0.7,
+    "top1_table_recall": 0.8,
+    "top3_recall": 0.96,
+    "top3_table_recall": 1.0,
+    "top5_recall": 0.98,
+    "top5_table_recall": 1.0
+  },
+  "per_question": [
+    {
+      "id": 1,
+      "question": "一等奖学金的绩点要求是多少？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "",
+        "奖学金",
+        ""
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 2,
+      "question": "省政府奖学金的申请条件是什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "",
+        "奖学金",
+        "",
+        "奖学金"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 3,
+      "question": "计算机学院 2025-2026 学年省政府奖学金有多少名额？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        ""
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 4,
+      "question": "挂过 1 门课还能不能评奖学金？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "",
+        "奖学金",
+        "",
+        "奖学金"
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 5,
+      "question": "省政府奖学金特别优秀的评选条件有哪些？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "附件2-浙江工业大学 “省政府奖学金”特别优秀评选条件.docx"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "附件2-浙江工业大学 “省政府奖学金”特别优秀评选条件.docx",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "",
+        "奖学金"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 6,
+      "question": "单项奖学金有哪些类别？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        ""
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 7,
+      "question": "优秀学生的评选条件是什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 8,
+      "question": "先进班级的评选条件有哪些？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 9,
+      "question": "奖学金评定程序是怎样的？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金"
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 10,
+      "question": "计算机学院奖学金评定工作小组由哪些人组成？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 11,
+      "question": "数字媒体技术专业的培养目标是什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2024数字媒体技术培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024软件工程培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 12,
+      "question": "软件工程专业的计划学制是几年？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2024软件工程培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024数字媒体技术培养计划.pdf",
+        "2024软件工程培养计划.pdf",
+        "2024软件工程培养计划.pdf",
+        "2024软件工程培养计划.pdf",
+        "2024软件工程培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案"
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 13,
+      "question": "计算机科学与技术专业毕业需要修满多少学分？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2024计算机科学与技术培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024数字媒体技术培养计划.pdf",
+        "2024网络工程培养计划.pdf",
+        "2024计算机科学与技术培养计划.pdf",
+        "2024软件工程培养计划.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "",
+        "培养方案",
+        "",
+        "培养方案",
+        ""
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 14,
+      "question": "网络工程专业的主干学科是什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2024网络工程培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024计算机科学与技术培养计划.pdf",
+        "2024网络工程培养计划.pdf",
+        "2024网络工程培养计划.pdf",
+        "2024网络工程培养计划.pdf",
+        "2024软件工程培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案"
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 15,
+      "question": "数字媒体技术专业有哪些专业必修课程？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2024数字媒体技术培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 16,
+      "question": "软件工程专业授予什么学位？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2024软件工程培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024计算机科学与技术培养计划.pdf",
+        "2024软件工程培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024软件工程培养计划.pdf",
+        "2024网络工程培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "",
+        "培养方案",
+        ""
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 17,
+      "question": "计算机科学与技术专业有哪些双语或全英语教学课程？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2024计算机科学与技术培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024网络工程培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024计算机科学与技术培养计划.pdf",
+        "2024计算机科学与技术培养计划.pdf",
+        "2024计算机科学与技术培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "",
+        ""
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 18,
+      "question": "网络工程专业辅修需要多少学分？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2024网络工程培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024网络工程培养计划.pdf",
+        "2024计算机科学与技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024网络工程培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        ""
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 19,
+      "question": "创新学分申请的时间范围是什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2025-2026学年度第二学期创新分申请补充说明.docx"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": false,
+        "3": false,
+        "5": false
+      }
+    },
+    {
+      "id": 20,
+      "question": "软件著作权申请创新学分需要满足什么条件？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 21,
+      "question": "专业实践技能创新学分有哪些认定项目？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "",
+        ""
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 22,
+      "question": "AI+ 信息素养大赛的主办单位是谁？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 23,
+      "question": "AI+ 信息素养大赛的试题形式和分值是怎样的？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "学籍",
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 24,
+      "question": "综合测评材料提交的时间要求是什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2025-2026综合测评分材料提交指南.docx"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2025-2026综合测评分材料提交指南.docx",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "2025-2026综合测评分材料提交指南.docx",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 25,
+      "question": "志愿服务工时如何计入综合测评？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2025-2026综合测评分材料提交指南.docx",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "2025-2026综合测评分材料提交指南.docx",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评"
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 26,
+      "question": "综合测评中创新创业类材料需要提交什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2025-2026综合测评分材料提交指南.docx"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2025-2026综合测评分材料提交指南.docx",
+        "2025-2026综合测评分材料提交指南.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "综合测评",
+        "综合测评",
+        "创新学分",
+        "创新学分",
+        ""
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 27,
+      "question": "综合测评工时在哪里查询？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "2025-2026综合测评分材料提交指南.docx"
+      ],
+      "top5_retrieved_tags": [
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 28,
+      "question": "统一加分项目有哪些？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2025-2026综合测评分材料提交指南.docx"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2025-2026综合测评分材料提交指南.docx",
+        "2025-2026综合测评分材料提交指南.docx",
+        "2025-2026学年度第二学期创新分申请补充说明.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.docx"
+      ],
+      "top5_retrieved_tags": [
+        "综合测评",
+        "综合测评",
+        "创新学分",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 29,
+      "question": "托福成绩多少分可以申请英语免修？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "关于本科生公共英语课程成绩替换的申请操作.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 30,
+      "question": "雅思成绩申请英语免修的要求是什么？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "关于本科生公共英语课程成绩替换的申请操作.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 31,
+      "question": "大学英语四级多少分可以申请免修？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "关于本科生公共英语课程成绩替换的申请操作.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 32,
+      "question": "英语免修申请在哪个系统提交？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "关于本科生公共英语课程成绩替换的申请操作.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "关于本科生公共英语课程成绩替换的申请操作.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程"
+      ],
+      "hit": {
+        "1": false,
+        "3": false,
+        "5": true
+      }
+    },
+    {
+      "id": 33,
+      "question": "公共英语课是指哪些课程？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "关于本科生公共英语课程成绩替换的申请操作.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "关于本科生公共英语课程成绩替换的申请操作.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "关于本科生公共英语课程成绩替换的申请操作.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "英语课程",
+        "英语课程",
+        "",
+        "英语课程",
+        ""
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 34,
+      "question": "勤工助学岗位的薪酬是多少？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "屏峰勤工助学岗位招募通知.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx"
+      ],
+      "top5_retrieved_tags": [
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 35,
+      "question": "勤工助学岗位的招募对象是谁？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "屏峰勤工助学岗位招募通知.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "屏峰勤工助学岗位招募通知.pdf",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx",
+        "勤工助学.docx"
+      ],
+      "top5_retrieved_tags": [
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 36,
+      "question": "勤工助学岗位有哪些？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "屏峰勤工助学岗位招募通知.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "勤工助学.docx",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx"
+      ],
+      "top5_retrieved_tags": [
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学"
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 37,
+      "question": "勤工助学岗位的截止时间是什么时候？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "屏峰勤工助学岗位招募通知.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx",
+        "勤工助学.docx"
+      ],
+      "top5_retrieved_tags": [
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 38,
+      "question": "勤工助学岗位如何报名？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "屏峰勤工助学岗位招募通知.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "勤工助学.docx",
+        "勤工助学.docx",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx"
+      ],
+      "top5_retrieved_tags": [
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学"
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 39,
+      "question": "勤工助学岗位的工作时间是什么时候？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "屏峰勤工助学岗位招募通知.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx",
+        "勤工助学.docx"
+      ],
+      "top5_retrieved_tags": [
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 40,
+      "question": "一等奖学金和二等奖学金的绩点要求差多少？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+        "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "",
+        "奖学金",
+        ""
+      ],
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 41,
+      "question": "计算机学院 23 级和 24 级的省政府奖学金名额差多少？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "奖学金"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 42,
+      "question": "数字媒体技术专业和专业必修课程总共有多少学分？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2024数字媒体技术培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf",
+        "2024数字媒体技术培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "培养方案"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 43,
+      "question": "网络工程专业和软件工程专业的专业必修课程学分哪个更高？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2024网络工程培养计划.pdf",
+        "2024软件工程培养计划.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2024网络工程培养计划.pdf",
+        "2024网络工程培养计划.pdf",
+        "2024网络工程培养计划.pdf",
+        "2024网络工程培养计划.pdf",
+        "2024网络工程培养计划.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "培养方案",
+        "培养方案",
+        "培养方案",
+        "",
+        "培养方案"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 44,
+      "question": "创新学分认定中，团队项目的队长和成员分值如何计算？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.docx",
+        "计算机科学与技术学院、软件学院创新学分认.pdf",
+        "计算机科学与技术学院、软件学院创新学分认.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "创新学分",
+        "创新学分",
+        "",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 45,
+      "question": "AI+ 信息素养大赛单选题和多选题总分分别是多少？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+        "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "学籍",
+        "创新学分",
+        "创新学分",
+        "创新学分",
+        "创新学分"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 46,
+      "question": "综合测评中，校工时和院工时的计算时间范围是否相同？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+        "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评",
+        "综合测评"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 47,
+      "question": "托福和雅思成绩哪个要求更高？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "关于本科生公共英语课程成绩替换的申请操作.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 48,
+      "question": "勤工助学岗位中，软件实验室和系统实验室的工作内容有什么区别？",
+      "is_table_question": true,
+      "expected_source_files": [
+        "屏峰勤工助学岗位招募通知.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "屏峰勤工助学岗位招募通知.pdf",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "屏峰勤工助学岗位招募通知.pdf",
+        "勤工助学.docx"
+      ],
+      "top5_retrieved_tags": [
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学",
+        "勤工助学"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 49,
+      "question": "如果我想同时申请省政府奖学金和优秀学生荣誉称号，需要满足哪些条件？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+        "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "奖学金",
+        "奖学金",
+        "奖学金",
+        "",
+        "奖学金"
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    },
+    {
+      "id": 50,
+      "question": "我挂过 1 门课但已经重修通过了，还能评奖学金吗？还能申请英语免修吗？",
+      "is_table_question": false,
+      "expected_source_files": [
+        "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf"
+      ],
+      "match_mode": "source_file",
+      "top5_retrieved_files": [
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "关于本科生公共英语课程成绩替换的申请操作.pdf",
+        "浙江工业大学本科生公共英语课程免修、重考.pdf",
+        "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+      ],
+      "top5_retrieved_tags": [
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        "英语课程",
+        ""
+      ],
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      }
+    }
+  ],
+  "total_questions": 50,
+  "table_questions": 15
+}
