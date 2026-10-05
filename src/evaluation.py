@@ -96,11 +96,15 @@ def evaluate_recall(
     # 逐题明细
     per_question = []
 
+    # 负样本统计（用于评估拒答能力）
+    negative_stats = {"total": 0, "correctly_rejected": 0}
+
     for item in dataset:
         qid = item.get("id")
         question = item["question"]
         source_files = set(item.get("source_files", []))
         source_tags = set(item.get("source_tags", []))
+        is_negative = bool(item.get("negative_sample", False))
         use_file_level = len(source_files) > 0
         is_table = bool(item.get("is_table_question", False))
 
@@ -111,6 +115,22 @@ def evaluate_recall(
         # 预计算每条 doc 的"命中判定键"
         retrieved_files = [d.metadata.get("source_file", "") for d in docs]
         retrieved_tags = [d.metadata.get("business_tag", "") for d in docs]
+
+        # 负样本：检查系统是否能正确拒答（无 source_files 时视为拒答）
+        if is_negative:
+            negative_stats["total"] += 1
+            # 对于负样本，如果召回的文档都不相关，视为正确拒答
+            # 这里简化处理：只要 source_files 为空就认为需要拒答
+            # 实际判断需要更复杂的逻辑（如检查召回文档是否真的不相关）
+            detail = {
+                "id": qid,
+                "question": question,
+                "is_negative_sample": True,
+                "top5_retrieved_files": retrieved_files[:5],
+                "top5_retrieved_tags": retrieved_tags[:5],
+            }
+            per_question.append(detail)
+            continue
 
         # 按 k 切片统计
         hits_by_k = {}
@@ -160,6 +180,8 @@ def evaluate_recall(
         "per_question": per_question,
         "total_questions": len(dataset),
         "table_questions": sum(1 for item in dataset if item.get("is_table_question")),
+        "negative_questions": negative_stats["total"],
+        "negative_stats": negative_stats,
     }
 
 
@@ -264,6 +286,8 @@ def run_full_evaluation(
         "ragas": ragas_report,
         "total_questions": recall_result["total_questions"],
         "table_questions": recall_result["table_questions"],
+        "negative_questions": recall_result["negative_questions"],
+        "negative_stats": recall_result["negative_stats"],
         "label": label,
     }
 
@@ -299,11 +323,12 @@ def _generate_report(report: dict, output_path: str):
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
     label = report.get("label", "evaluation")
+    negative_count = report.get("negative_questions", 0)
     lines = [
         f"# 评估报告 - {label}",
         "",
         f"**评估时间**: 自动生成",
-        f"**测试集规模**: {report['total_questions']} 条（表格类 {report['table_questions']} 条）",
+        f"**测试集规模**: {report['total_questions']} 条（表格类 {report['table_questions']} 条，负样本 {negative_count} 条）",
         "",
         "## 召回率",
         "",
@@ -325,10 +350,12 @@ def _generate_report(report: dict, output_path: str):
     # 逐题明细（仅展示未命中的题，便于归因）
     per_question = report.get("per_question", [])
     if per_question:
-        # 找出 top-3 仍未命中的题
-        missed_top3 = [p for p in per_question if not p["hit"].get("3", False)]
-        # 找出 top-3 命中但 top-1 未命中的题
-        missed_top1_only = [p for p in per_question if p["hit"].get("3", False) and not p["hit"].get("1", False)]
+        # 找出 top-3 仍未命中的题（排除负样本）
+        missed_top3 = [p for p in per_question if not p.get("is_negative_sample") and not p["hit"].get("3", False)]
+        # 找出 top-3 命中但 top-1 未命中的题（排除负样本）
+        missed_top1_only = [p for p in per_question if not p.get("is_negative_sample") and p["hit"].get("3", False) and not p["hit"].get("1", False)]
+        # 负样本列表
+        negative_samples = [p for p in per_question if p.get("is_negative_sample")]
 
         lines.extend([
             "",
@@ -362,6 +389,18 @@ def _generate_report(report: dict, output_path: str):
                 retrieved = ", ".join(p.get("top5_retrieved_files", [])[:3]) if match_mode == "source_file" else ", ".join(p.get("top5_retrieved_tags", [])[:3])
                 lines.append(f"- **Q{p['id']}** {p['question']}")
                 lines.append(f"  - 期望: `{expected}`")
+                lines.append(f"  - Top-3 召回: `{retrieved}`")
+
+        # 负样本展示
+        if negative_samples:
+            lines.extend([
+                "",
+                f"### 负样本（共 {len(negative_samples)} 条，应拒答）",
+                "",
+            ])
+            for p in negative_samples[:10]:
+                retrieved = ", ".join(p.get("top5_retrieved_files", [])[:3])
+                lines.append(f"- **Q{p['id']}** {p['question']}")
                 lines.append(f"  - Top-3 召回: `{retrieved}`")
 
     lines.extend([

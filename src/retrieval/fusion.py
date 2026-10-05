@@ -13,30 +13,40 @@ def rrf_fuse(
     doc_lists: list[list[Document]],
     k: int = 60,
     top_k: int = 10,
+    weights: list[float] | None = None,
 ) -> list[Document]:
     """RRF（Reciprocal Rank Fusion）倒数排名融合。
 
-    原理：score(d) = Σ 1/(k + rank_i(d))
+    原理：score(d) = Σ weight_i / (k + rank_i(d))
     - 完全抛弃分数，只看排名，规避量纲差异
     - k 控制头部抑制力度：k 越小越强调头部，k 越大越民主
     - 论文推荐 k=60 起步
+    - weights 控制每路权重（默认等权）
 
     参数：
         doc_lists: 多路召回结果列表，每路按分数从高到低排序
         k: 平滑常数，默认 60
         top_k: 返回前多少条
+        weights: 每路权重列表，默认等权
     """
+    if weights is None:
+        weights = [1.0] * len(doc_lists)
+    if len(weights) != len(doc_lists):
+        raise ValueError(
+            f"权重数量({len(weights)})与检索路数({len(doc_lists)})不匹配"
+        )
+
     scores: dict[str, float] = {}
     doc_map: dict[str, Document] = {}
 
-    for doc_list in doc_lists:
+    for doc_list, weight in zip(doc_lists, weights):
         for rank, doc in enumerate(doc_list):
             # 用 page_content 做去重键（同一 chunk 的 text 完全相同）
             key = doc.page_content
             if key not in doc_map:
                 doc_map[key] = doc
                 scores[key] = 0.0
-            scores[key] += 1.0 / (k + rank + 1)  # rank 从 0 开始，+1 转为 1-based
+            scores[key] += weight / (k + rank + 1)  # rank 从 0 开始，+1 转为 1-based
 
     # 按 RRF 分数降序排列
     sorted_keys = sorted(scores.keys(), key=lambda x: scores[x], reverse=True)

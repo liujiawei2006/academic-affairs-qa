@@ -1,0 +1,2675 @@
+[
+  {
+    "id": 1,
+    "question": "一等奖学金的绩点要求是多少？",
+    "dict_rewritten": "一等奖学金的绩点要求是多少？ 平均学分绩点",
+    "llm_variants": [
+      "一等奖学金的平均学分绩点要求是多少？",
+      "获得一等奖学金需要达到的平均学分绩点标准是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 3,
+    "rank_change": -2,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+    ],
+    "change": "regressed_top1"
+  },
+  {
+    "id": 2,
+    "question": "省政府奖学金的申请条件是什么？",
+    "dict_rewritten": "省政府奖学金的申请条件是什么？",
+    "llm_variants": [
+      "省政府奖学金的评审条件是什么？",
+      "省政府奖学金的申报条件有哪些？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 3,
+    "question": "计算机学院 2025-2026 学年省政府奖学金有多少名额？",
+    "dict_rewritten": "计算机学院 2025-2026 学年省政府奖学金有多少名额？",
+    "llm_variants": [
+      "计算机学院2025-2026学年省政府奖学金的名额数量是多少？",
+      "计算机学院2025-2026学年省政府奖学金分配名额为多少个？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "rewrite_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 4,
+    "question": "挂过 1 门课还能不能评奖学金？",
+    "dict_rewritten": "挂过 1 门课还能不能评奖学金？ 不及格课程",
+    "llm_variants": [
+      "不及格课程记录是否影响奖学金评定资格？",
+      "有一门不及格课程还能申请奖学金吗？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": true,
+    "hybrid_rank": 4,
+    "rewrite_rank": 3,
+    "rank_change": 1,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+    ],
+    "change": "improved_top3"
+  },
+  {
+    "id": 5,
+    "question": "省政府奖学金特别优秀的评选条件有哪些？",
+    "dict_rewritten": "省政府奖学金特别优秀的评选条件有哪些？",
+    "llm_variants": [
+      "省政府奖学金特别优秀的评选条件是什么？",
+      "省政府奖学金特别优秀的申请资格有哪些具体规定？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "附件2-浙江工业大学 “省政府奖学金”特别优秀评选条件.docx",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "rewrite_files": [
+      "附件2-浙江工业大学 “省政府奖学金”特别优秀评选条件.docx",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 6,
+    "question": "单项奖学金有哪些类别？",
+    "dict_rewritten": "单项奖学金有哪些类别？",
+    "llm_variants": [
+      "单项奖学金具体包括哪些类别？",
+      "单项奖学金分为哪些类别？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 7,
+    "question": "优秀学生的评选条件是什么？",
+    "dict_rewritten": "优秀学生的评选条件是什么？",
+    "llm_variants": [
+      "优秀学生的评选条件是什么？",
+      "优秀学生的评定标准有哪些？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+    ],
+    "rewrite_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 8,
+    "question": "先进班级的评选条件有哪些？",
+    "dict_rewritten": "先进班级的评选条件有哪些？",
+    "llm_variants": [
+      "先进班级的评选条件是什么？",
+      "评选先进班级需要满足哪些具体条件？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+    ],
+    "rewrite_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 9,
+    "question": "奖学金评定程序是怎样的？",
+    "dict_rewritten": "奖学金评定程序是怎样的？",
+    "llm_variants": [
+      "奖学金评定流程是什么？",
+      "奖学金评定步骤有哪些？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 10,
+    "question": "计算机学院奖学金评定工作小组由哪些人组成？",
+    "dict_rewritten": "计算机学院奖学金评定工作小组由哪些人组成？",
+    "llm_variants": [
+      "计算机学院奖学金评定工作小组的人员构成是什么？",
+      "计算机学院奖学金评定工作小组具体包含哪些成员？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 11,
+    "question": "数字媒体技术专业的培养目标是什么？",
+    "dict_rewritten": "数字媒体技术专业的培养目标是什么？",
+    "llm_variants": [
+      "数字媒体技术专业的培养目标是什么？",
+      "数字媒体技术专业旨在培养具备哪些能力和素质的人才？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 12,
+    "question": "软件工程专业的计划学制是几年？",
+    "dict_rewritten": "软件工程专业的计划学制是几年？",
+    "llm_variants": [
+      "软件工程专业的计划学制是几年？",
+      "软件工程专业的标准修业年限是多少年？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 1,
+    "rank_change": 1,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024软件工程培养计划.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024软件工程培养计划.pdf",
+      "2024软件工程培养计划.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "change": "improved_top1"
+  },
+  {
+    "id": 13,
+    "question": "计算机科学与技术专业毕业需要修满多少学分？",
+    "dict_rewritten": "计算机科学与技术专业毕业需要修满多少学分？",
+    "llm_variants": [
+      "计算机科学与技术专业毕业要求的最低学分是多少？",
+      "计算机科学与技术专业修满多少学分才能满足毕业条件？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 14,
+    "question": "网络工程专业的主干学科是什么？",
+    "dict_rewritten": "网络工程专业的主干学科是什么？",
+    "llm_variants": [
+      "网络工程专业的主干学科包括哪些？",
+      "网络工程专业的主干学科具体指什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024计算机科学与技术培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024计算机科学与技术培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 15,
+    "question": "数字媒体技术专业有哪些专业必修课程？",
+    "dict_rewritten": "数字媒体技术专业有哪些专业必修课程？",
+    "llm_variants": [
+      "数字媒体技术专业要求修读哪些专业必修课程？",
+      "数字媒体技术专业的专业必修课程包括哪些具体科目？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 16,
+    "question": "软件工程专业授予什么学位？",
+    "dict_rewritten": "软件工程专业授予什么学位？",
+    "llm_variants": [
+      "软件工程专业授予什么学位？",
+      "软件工程专业的学位授予类型是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024软件工程培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024软件工程培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 17,
+    "question": "计算机科学与技术专业有哪些双语或全英语教学课程？",
+    "dict_rewritten": "计算机科学与技术专业有哪些双语或全英语教学课程？",
+    "llm_variants": [
+      "计算机科学与技术专业提供哪些双语教学课程和全英语教学课程？",
+      "计算机科学与技术专业的课程体系中包含哪些以双语或全英语授课的课程？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 3,
+    "rank_change": -1,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 18,
+    "question": "网络工程专业辅修需要多少学分？",
+    "dict_rewritten": "网络工程专业辅修需要多少学分？ 辅修专业",
+    "llm_variants": [
+      "网络工程专业辅修需要修读多少学分？",
+      "网络工程专业的辅修学分要求是多少？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 19,
+    "question": "创新学分申请的时间范围是什么？",
+    "dict_rewritten": "创新学分申请的时间范围是什么？",
+    "llm_variants": [
+      "创新学分的申请时间窗口是何时？",
+      "创新学分申请的具体起止日期是什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 20,
+    "question": "软件著作权申请创新学分需要满足什么条件？",
+    "dict_rewritten": "软件著作权申请创新学分需要满足什么条件？",
+    "llm_variants": [
+      "软件著作权申请创新学分的认定条件是什么？",
+      "获得软件著作权后，申请创新学分需要符合哪些具体要求？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 21,
+    "question": "专业实践技能创新学分有哪些认定项目？",
+    "dict_rewritten": "专业实践技能创新学分有哪些认定项目？",
+    "llm_variants": [
+      "专业实践技能创新学分的认定项目具体包含哪些类别？",
+      "专业实践技能创新学分能够认定的项目范围包括哪些具体内容？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 22,
+    "question": "AI+ 信息素养大赛的主办单位是谁？",
+    "dict_rewritten": "AI+ 信息素养大赛的主办单位是谁？",
+    "llm_variants": [
+      "AI+信息素养大赛的主办单位是哪个机构？",
+      "AI+信息素养大赛由哪些单位主办？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+    ],
+    "rewrite_files": [
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 23,
+    "question": "AI+ 信息素养大赛的试题形式和分值是怎样的？",
+    "dict_rewritten": "AI+ 信息素养大赛的试题形式和分值是怎样的？",
+    "llm_variants": [
+      "AI+信息素养大赛的试题形式与分值设置是怎样的？",
+      "AI+信息素养大赛的考试题型和评分标准分别是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+    ],
+    "rewrite_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 24,
+    "question": "综合测评材料提交的时间要求是什么？",
+    "dict_rewritten": "综合测评材料提交的时间要求是什么？",
+    "llm_variants": [
+      "综合测评材料提交的截止时间要求是什么？",
+      "综合测评材料递交的时间规定是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "rewrite_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 25,
+    "question": "志愿服务工时如何计入综合测评？",
+    "dict_rewritten": "志愿服务工时如何计入综合测评？",
+    "llm_variants": [
+      "志愿服务工时如何纳入综合测评体系？",
+      "志愿服务时长怎样核算进综合测评成绩？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "rewrite_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 26,
+    "question": "综合测评中创新创业类材料需要提交什么？",
+    "dict_rewritten": "综合测评中创新创业类材料需要提交什么？",
+    "llm_variants": [
+      "综合测评中创新创业类材料需要提交哪些具体文件？",
+      "综合测评的创新创业类材料申报需要准备哪些证明材料？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "2025-2026综合测评分材料提交指南.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "rewrite_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "2025-2026综合测评分材料提交指南.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 27,
+    "question": "综合测评工时在哪里查询？",
+    "dict_rewritten": "综合测评工时在哪里查询？",
+    "llm_variants": [
+      "综合测评工时的查询渠道是什么？",
+      "综合测评工时可以通过哪些途径进行查询？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "rewrite_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 28,
+    "question": "统一加分项目有哪些？",
+    "dict_rewritten": "统一加分项目有哪些？",
+    "llm_variants": [
+      "统一加分项目具体包括哪些类别？",
+      "高校统一加分项目的具体内容有哪些？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "2025-2026学年度第二学期创新分申请补充说明.docx",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "rewrite_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "2025-2026学年度第二学期创新分申请补充说明.docx",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 29,
+    "question": "托福成绩多少分可以申请英语免修？",
+    "dict_rewritten": "托福成绩多少分可以申请英语免修？ 公共英语课程免修",
+    "llm_variants": [
+      "托福成绩达到多少分可以申请公共英语课程免修？",
+      "申请公共英语课程免修所需的托福成绩最低要求是多少分？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 30,
+    "question": "雅思成绩申请英语免修的要求是什么？",
+    "dict_rewritten": "雅思成绩申请英语免修的要求是什么？ 公共英语课程免修",
+    "llm_variants": [
+      "雅思成绩申请公共英语课程免修的具体条件是什么？",
+      "公共英语课程免修对雅思成绩有何要求？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 31,
+    "question": "大学英语四级多少分可以申请免修？",
+    "dict_rewritten": "大学英语四级多少分可以申请免修？",
+    "llm_variants": [
+      "大学英语四级考试成绩达到多少分可以申请免修？",
+      "大学英语四级考试需要考到多少分才能申请免修？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 32,
+    "question": "英语免修申请在哪个系统提交？",
+    "dict_rewritten": "英语免修申请在哪个系统提交？ 公共英语课程免修",
+    "llm_variants": [
+      "英语免修申请应在哪个系统提交？",
+      "公共英语课程免修的申请入口在哪里？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": false,
+    "hybrid_rank": 3,
+    "rewrite_rank": 5,
+    "rank_change": -2,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "regressed_top3"
+  },
+  {
+    "id": 33,
+    "question": "公共英语课是指哪些课程？",
+    "dict_rewritten": "公共英语课是指哪些课程？",
+    "llm_variants": [
+      "公共英语课具体包含哪些课程？",
+      "公共英语课程的范围包括哪些具体科目？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 34,
+    "question": "勤工助学岗位的薪酬是多少？",
+    "dict_rewritten": "勤工助学岗位的薪酬是多少？",
+    "llm_variants": [
+      "勤工助学岗位的薪酬标准是怎样的？",
+      "勤工助学岗位的薪资发放金额是多少？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "rewrite_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 35,
+    "question": "勤工助学岗位的招募对象是谁？",
+    "dict_rewritten": "勤工助学岗位的招募对象是谁？",
+    "llm_variants": [
+      "勤工助学岗位的招募对象是哪些学生群体？",
+      "勤工助学岗位的选拔范围包括哪些人员？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx"
+    ],
+    "rewrite_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 36,
+    "question": "勤工助学岗位有哪些？",
+    "dict_rewritten": "勤工助学岗位有哪些？",
+    "llm_variants": [
+      "勤工助学岗位有哪些类型？",
+      "学校提供哪些勤工助学岗位？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 37,
+    "question": "勤工助学岗位的截止时间是什么时候？",
+    "dict_rewritten": "勤工助学岗位的截止时间是什么时候？",
+    "llm_variants": [
+      "勤工助学岗位的申请截止时间是什么时候？",
+      "勤工助学岗位的报名截止日期是几号？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 38,
+    "question": "勤工助学岗位如何报名？",
+    "dict_rewritten": "勤工助学岗位如何报名？",
+    "llm_variants": [
+      "勤工助学岗位的报名流程是什么？",
+      "如何申请勤工助学岗位？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 3,
+    "rewrite_rank": 3,
+    "rank_change": 0,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 39,
+    "question": "勤工助学岗位的工作时间是什么时候？",
+    "dict_rewritten": "勤工助学岗位的工作时间是什么时候？",
+    "llm_variants": [
+      "勤工助学岗位的工作时间安排是怎样的？",
+      "勤工助学岗位的工时时段是如何规定的？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "rewrite_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 40,
+    "question": "一等奖学金和二等奖学金的绩点要求差多少？",
+    "dict_rewritten": "一等奖学金和二等奖学金的绩点要求差多少？ 平均学分绩点",
+    "llm_variants": [
+      "一等奖学金与二等奖学金的平均学分绩点要求相差多少？",
+      "一等奖学金和二等奖学金在平均学分绩点上的要求差距是多少？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+    ],
+    "rewrite_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 41,
+    "question": "计算机学院 23 级和 24 级的省政府奖学金名额差多少？",
+    "dict_rewritten": "计算机学院 23 级和 24 级的省政府奖学金名额差多少？",
+    "llm_variants": [
+      "计算机学院23级与24级的省政府奖学金名额差额是多少？",
+      "计算机学院2023级和2024级省政府奖学金名额相差多少？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "rewrite_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 42,
+    "question": "数字媒体技术专业和专业必修课程总共有多少学分？",
+    "dict_rewritten": "数字媒体技术专业和专业必修课程总共有多少学分？",
+    "llm_variants": [
+      "数字媒体技术专业的专业必修课程总学分是多少？",
+      "数字媒体技术专业必修课程合计需要修读多少学分？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 43,
+    "question": "网络工程专业和软件工程专业的专业必修课程学分哪个更高？",
+    "dict_rewritten": "网络工程专业和软件工程专业的专业必修课程学分哪个更高？",
+    "llm_variants": [
+      "网络工程专业与软件工程专业的专业必修课程学分要求哪个更高？",
+      "网络工程专业和软件工程专业中，哪个专业的专业必修课程学分总数更多？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 44,
+    "question": "创新学分认定中，团队项目的队长和成员分值如何计算？",
+    "dict_rewritten": "创新学分认定中，团队项目的队长和成员分值如何计算？",
+    "llm_variants": [
+      "创新学分认定中，团队项目的队长与成员分值如何计算？",
+      "创新学分认定中，团队项目负责人与参与者的分值分配规则是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 45,
+    "question": "AI+ 信息素养大赛单选题和多选题总分分别是多少？",
+    "dict_rewritten": "AI+ 信息素养大赛单选题和多选题总分分别是多少？",
+    "llm_variants": [
+      "AI+信息素养大赛的单选题和多选题满分各是多少分？",
+      "AI+信息素养大赛中单选题与多选题的分值设置分别为多少？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 46,
+    "question": "综合测评中，校工时和院工时的计算时间范围是否相同？",
+    "dict_rewritten": "综合测评中，校工时和院工时的计算时间范围是否相同？",
+    "llm_variants": [
+      "综合测评中，校级工时与院级工时的计算时间范围是否一致？",
+      "综合测评里，校工时和院工时的统计起止时间是否存在差异？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "rewrite_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 47,
+    "question": "托福和雅思成绩哪个要求更高？",
+    "dict_rewritten": "托福和雅思成绩哪个要求更高？",
+    "llm_variants": [
+      "托福成绩要求是否高于雅思成绩要求？",
+      "雅思成绩要求是否低于托福成绩要求？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 48,
+    "question": "勤工助学岗位中，软件实验室和系统实验室的工作内容有什么区别？",
+    "dict_rewritten": "勤工助学岗位中，软件实验室和系统实验室的工作内容有什么区别？",
+    "llm_variants": [
+      "软件实验室和系统实验室的勤工助学岗位工作内容有何区别？",
+      "软件实验室与系统实验室在勤工助学岗位上的职责差异是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "rewrite_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 49,
+    "question": "如果我想同时申请省政府奖学金和优秀学生荣誉称号，需要满足哪些条件？",
+    "dict_rewritten": "如果我想同时申请省政府奖学金和优秀学生荣誉称号，需要满足哪些条件？",
+    "llm_variants": [
+      "申请省政府奖学金和优秀学生荣誉称号，需要同时满足哪些条件？",
+      "同时获得省政府奖学金与优秀学生荣誉称号，需要符合哪些评选资格？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "rewrite_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 50,
+    "question": "我挂过 1 门课但已经重修通过了，还能评奖学金吗？还能申请英语免修吗？",
+    "dict_rewritten": "我挂过 1 门课但已经重修通过了，还能评奖学金吗？还能申请英语免修吗？ 不及格课程 公共英语课程免修",
+    "llm_variants": [
+      "不及格课程已重修通过后，是否仍具备奖学金评定资格？",
+      "曾修读不及格课程但已重修合格，是否影响公共英语课程免修的申请条件？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 51,
+    "question": "一等奖学金要多少绩点？",
+    "dict_rewritten": "一等奖学金要多少绩点？ 平均学分绩点",
+    "llm_variants": [
+      "一等奖学金的评选要求平均学分绩点达到多少？",
+      "获得一等奖学金需要满足的平均学分绩点标准是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 52,
+    "question": "绩点 3.8 能拿一等奖学金吗？",
+    "dict_rewritten": "绩点 3.8 能拿一等奖学金吗？ 平均学分绩点",
+    "llm_variants": [
+      "平均学分绩点达到3.8能否获得一等奖学金？",
+      "平均学分绩点为3.8时，是否满足一等奖学金的评定条件？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 53,
+    "question": "省政府奖学金怎么申请？有什么要求？",
+    "dict_rewritten": "省政府奖学金怎么申请？有什么要求？",
+    "llm_variants": [
+      "省政府奖学金的申请流程是什么？需要满足哪些条件？",
+      "如何申请省政府奖学金？申请资格和具体要求有哪些？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 3,
+    "rewrite_rank": 2,
+    "rank_change": 1,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 54,
+    "question": "挂科了还能拿奖学金吗？",
+    "dict_rewritten": "挂科了还能拿奖学金吗？ 不及格课程",
+    "llm_variants": [
+      "不及格课程是否影响奖学金评定资格？",
+      "有不及格课程记录还能申请奖学金吗？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 2,
+    "rank_change": -1,
+    "hybrid_files": [
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "regressed_top1"
+  },
+  {
+    "id": 55,
+    "question": "数媒专业学什么？培养方向是什么？",
+    "dict_rewritten": "数媒专业学什么？培养方向是什么？",
+    "llm_variants": [
+      "数字媒体技术专业的课程设置有哪些？",
+      "数字媒体技术专业的培养方向是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 56,
+    "question": "软件工程要读几年？能提前毕业吗？",
+    "dict_rewritten": "软件工程要读几年？能提前毕业吗？",
+    "llm_variants": [
+      "软件工程专业本科标准学制是几年？可以申请提前毕业吗？",
+      "软件工程专业的学习年限是多少？提前毕业需要满足哪些条件？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024软件工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024软件工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 57,
+    "question": "计算机专业毕业要修多少学分？",
+    "dict_rewritten": "计算机专业毕业要修多少学分？",
+    "llm_variants": [
+      "计算机科学与技术专业毕业要求修读的总学分是多少？",
+      "计算机科学与技术专业本科毕业所需修满的学分总数是多少？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": 5,
+    "rewrite_rank": 5,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024软件工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 58,
+    "question": "创新学分什么时候能申请？截止日期是什么时候？",
+    "dict_rewritten": "创新学分什么时候能申请？截止日期是什么时候？",
+    "llm_variants": [
+      "创新学分的申请时间是什么时候？截止日期是哪一天？",
+      "创新学分的申请起止日期是什么时候？最晚提交时间为何时？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 59,
+    "question": "拿了个软著能加多少创新学分？",
+    "dict_rewritten": "拿了个软著能加多少创新学分？",
+    "llm_variants": [
+      "获得一项软件著作权可以加多少创新学分？",
+      "软件著作权对应多少创新学分的加分标准？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 60,
+    "question": "综测材料什么时候交？",
+    "dict_rewritten": "综测材料什么时候交？ 综合测评",
+    "llm_variants": [
+      "综合测评材料提交的截止时间是什么时候？",
+      "综合测评材料的递交期限是何时？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "2025-2026综合测评分材料提交指南.docx",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 61,
+    "question": "志愿时长能加综测分吗？怎么算？",
+    "dict_rewritten": "志愿时长能加综测分吗？怎么算？ 综合测评",
+    "llm_variants": [
+      "志愿服务时长能否计入综合测评成绩？如何计算？",
+      "志愿服务时长是否可增加综合测评分数？其计算方式是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "rewrite_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 62,
+    "question": "托福多少分可以不用上英语课？",
+    "dict_rewritten": "托福多少分可以不用上英语课？",
+    "llm_variants": [
+      "托福成绩达到多少分可以申请免修英语课程？",
+      "托福考试取得多少分才能免除英语课程的学习要求？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 63,
+    "question": "雅思 6 分能免修英语吗？",
+    "dict_rewritten": "雅思 6 分能免修英语吗？",
+    "llm_variants": [
+      "雅思6分是否可以申请英语课程免修？",
+      "雅思6分成绩能否作为英语免修的依据？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 64,
+    "question": "勤工助学一小时多少钱？",
+    "dict_rewritten": "勤工助学一小时多少钱？",
+    "llm_variants": [
+      "勤工助学的时薪标准是多少？",
+      "校内勤工助学岗位的每小时的薪酬是多少？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "rewrite_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 65,
+    "question": "勤工助学岗位谁可以申请？",
+    "dict_rewritten": "勤工助学岗位谁可以申请？",
+    "llm_variants": [
+      "勤工助学岗位的申请条件是什么？",
+      "哪些学生具备申请勤工助学岗位的资格？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 66,
+    "question": "勤工助学怎么报名？找谁报名？",
+    "dict_rewritten": "勤工助学怎么报名？找谁报名？",
+    "llm_variants": [
+      "勤工助学如何报名？报名流程是什么？",
+      "勤工助学岗位的报名方式和负责部门是什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": false,
+    "hybrid_rank": 3,
+    "rewrite_rank": 4,
+    "rank_change": -1,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "change": "regressed_top3"
+  },
+  {
+    "id": 67,
+    "question": "信息素养大赛是谁办的？",
+    "dict_rewritten": "信息素养大赛是谁办的？",
+    "llm_variants": [
+      "信息素养大赛由哪个机构主办？",
+      "信息素养大赛的举办单位是什么？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 2,
+    "rank_change": -1,
+    "hybrid_files": [
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "regressed_top1"
+  },
+  {
+    "id": 68,
+    "question": "信息素养大赛考什么？有多少题？",
+    "dict_rewritten": "信息素养大赛考什么？有多少题？",
+    "llm_variants": [
+      "信息素养大赛的考试内容是什么？题目数量是多少？",
+      "信息素养大赛的考核范围包括哪些方面？总题量有多少道？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 69,
+    "question": "综测工时在哪里查？",
+    "dict_rewritten": "综测工时在哪里查？ 综合测评",
+    "llm_variants": [
+      "综合测评的工时记录在哪个系统或平台可以查询？",
+      "综合测评的工时信息应该通过什么官方渠道进行查询？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "rewrite_files": [
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 70,
+    "question": "英语免修在哪里申请？要填什么表？",
+    "dict_rewritten": "英语免修在哪里申请？要填什么表？ 公共英语课程免修",
+    "llm_variants": [
+      "英语免修申请地点在哪里？需要提交哪些申请表格？",
+      "公共英语课程免修的具体办理流程和所需表格是什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": false,
+    "hybrid_rank": 3,
+    "rewrite_rank": 4,
+    "rank_change": -1,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "regressed_top3"
+  },
+  {
+    "id": 71,
+    "question": "公共英语课包括哪些课程？",
+    "dict_rewritten": "公共英语课包括哪些课程？",
+    "llm_variants": [
+      "公共英语课程体系包含哪些具体课程？",
+      "公共英语必修课和选修课分别有哪些？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 72,
+    "question": "四六级多少分可以免修英语？",
+    "dict_rewritten": "四六级多少分可以免修英语？ 大学英语六级",
+    "llm_variants": [
+      "大学英语六级考试成绩达到多少分可以申请免修英语课程？",
+      "大学英语六级考试多少分以上可以免修大学英语课程？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 73,
+    "question": "计算机学院省政府奖学金有多少人？",
+    "dict_rewritten": "计算机学院省政府奖学金有多少人？",
+    "llm_variants": [
+      "计算机学院获得省政府奖学金的学生人数是多少？",
+      "计算机学院省政府奖学金的获奖名额有多少人？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 74,
+    "question": "省政府奖学金特别优秀是什么意思？怎么评？",
+    "dict_rewritten": "省政府奖学金特别优秀是什么意思？怎么评？",
+    "llm_variants": [
+      "省政府奖学金特别优秀的评定标准是什么？评选流程如何进行？",
+      "省政府奖学金特别优秀的具体含义是什么？其评选条件和程序有哪些？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "附件2-浙江工业大学 “省政府奖学金”特别优秀评选条件.docx",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "rewrite_files": [
+      "附件2-浙江工业大学 “省政府奖学金”特别优秀评选条件.docx",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 75,
+    "question": "学院奖学金评定小组有哪些老师？",
+    "dict_rewritten": "学院奖学金评定小组有哪些老师？",
+    "llm_variants": [
+      "学院奖学金评定小组的成员包括哪些教师？",
+      "学院奖学金评定小组的教师成员构成是怎样的？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 76,
+    "question": "网络工程专业主要学什么方向？",
+    "dict_rewritten": "网络工程专业主要学什么方向？",
+    "llm_variants": [
+      "网络工程专业的主要学习方向是什么？",
+      "网络工程专业的核心课程和研究方向包括哪些内容？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 77,
+    "question": "软件工程毕业发什么学位证？",
+    "dict_rewritten": "软件工程毕业发什么学位证？ 学位证书",
+    "llm_variants": [
+      "软件工程专业毕业时授予什么学位证书？",
+      "软件工程专业学生毕业后获得何种学位证书？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024软件工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024软件工程培养计划.pdf",
+      "2024软件工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 78,
+    "question": "综测创新创业加分要交什么材料？",
+    "dict_rewritten": "综测创新创业加分要交什么材料？ 综合测评",
+    "llm_variants": [
+      "综合测评中创新创业加分需要提交哪些证明材料？",
+      "申请综合测评创新创业加分时，应提交哪些材料？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf",
+      "关于开展计算机学院2025-2026学年2024与2025级综.pdf"
+    ],
+    "rewrite_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "2025-2026综合测评分材料提交指南.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 79,
+    "question": "勤工助学有哪些岗位可以选？",
+    "dict_rewritten": "勤工助学有哪些岗位可以选？",
+    "llm_variants": [
+      "勤工助学岗位有哪些可选类型？",
+      "学校提供哪些勤工助学岗位供学生选择？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "屏峰勤工助学岗位招募通知.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 80,
+    "question": "勤工助学报名什么时候截止？",
+    "dict_rewritten": "勤工助学报名什么时候截止？",
+    "llm_variants": [
+      "勤工助学岗位的报名截止时间是什么时候？",
+      "勤工助学活动的报名截止日期是哪一天？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": 5,
+    "rewrite_rank": 4,
+    "rank_change": 1,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "勤工助学.docx",
+      "勤工助学.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 81,
+    "question": "勤工助学什么时候开始上班？",
+    "dict_rewritten": "勤工助学什么时候开始上班？",
+    "llm_variants": [
+      "勤工助学岗位的工作时间是如何安排的？",
+      "勤工助学活动的开始时间是什么时候？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 1,
+    "rank_change": 1,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "improved_top1"
+  },
+  {
+    "id": 82,
+    "question": "数媒专业有哪些必修课？",
+    "dict_rewritten": "数媒专业有哪些必修课？",
+    "llm_variants": [
+      "数字媒体技术专业的必修课程有哪些？",
+      "数字媒体技术专业培养方案中规定了哪些必修课？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 83,
+    "question": "计算机专业有英文授课的课程吗？",
+    "dict_rewritten": "计算机专业有英文授课的课程吗？",
+    "llm_variants": [
+      "计算机科学与技术专业是否开设全英文授课课程？",
+      "计算机科学与技术专业有哪些课程采用英文教学？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": true,
+    "hybrid_rank": 5,
+    "rewrite_rank": 2,
+    "rank_change": 3,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "change": "improved_top3"
+  },
+  {
+    "id": 84,
+    "question": "辅修网络工程要多少学分？",
+    "dict_rewritten": "辅修网络工程要多少学分？ 辅修专业",
+    "llm_variants": [
+      "辅修网络工程专业需要修读多少学分？",
+      "辅修网络工程专业的学分要求是多少？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024计算机科学与技术培养计划.pdf",
+      "2024软件工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 85,
+    "question": "哪些项目可以加创新学分？",
+    "dict_rewritten": "哪些项目可以加创新学分？",
+    "llm_variants": [
+      "创新学分可以通过参加哪些项目获得？",
+      "哪些项目能够认定创新学分？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 86,
+    "question": "综测有哪些统一加分项目？",
+    "dict_rewritten": "综测有哪些统一加分项目？ 综合测评",
+    "llm_variants": [
+      "综合测评的统一加分项目有哪些？",
+      "综合测评中统一规定的加分项目包括哪些？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "2025-2026学年度第二学期创新分申请补充说明.docx",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "rewrite_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "2025-2026综合测评分材料提交指南.docx",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 87,
+    "question": "研究生奖学金怎么申请？",
+    "dict_rewritten": "研究生奖学金怎么申请？",
+    "llm_variants": [
+      "研究生奖学金申请流程是什么？",
+      "如何办理研究生奖学金的申请手续？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "关于举办2026年浙江工业大学“AI+信息素养”.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "2 浙工大发〔2022〕47号浙江工业大学本科学生奖学金评定及管理办法.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 88,
+    "question": "转专业需要什么条件？",
+    "dict_rewritten": "转专业需要什么条件？ 转专业申请条件",
+    "llm_variants": [
+      "转专业申请需要满足哪些条件？",
+      "申请转专业的具体资格要求是什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2025-2026学年度第二学期创新分申请补充说明.docx",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "计算机科学与技术学院、软件学院创新学分认.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 89,
+    "question": "辅修学位怎么申请？流程是什么？",
+    "dict_rewritten": "辅修学位怎么申请？流程是什么？ 辅修专业",
+    "llm_variants": [
+      "辅修学位的申请流程是什么？",
+      "如何申请辅修专业，其具体办理步骤是怎样的？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2024软件工程培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024网络工程培养计划.pdf",
+      "2024软件工程培养计划.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 90,
+    "question": "毕业设计（论文）什么时候开题？",
+    "dict_rewritten": "毕业设计（论文）什么时候开题？",
+    "llm_variants": [
+      "毕业设计（论文）的开题时间是什么时候？",
+      "毕业设计（论文）的开题工作安排在哪个时间段进行？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "2024网络工程培养计划.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2024数字媒体技术培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 91,
+    "question": "学校有哪些社团？怎么加入？",
+    "dict_rewritten": "学校有哪些社团？怎么加入？",
+    "llm_variants": [
+      "浙江工业大学有哪些学生社团？加入社团的流程是什么？",
+      "浙江工业大学学生社团的加入条件和申请方式是什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf",
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 92,
+    "question": "宿舍怎么申请？住宿费多少？",
+    "dict_rewritten": "宿舍怎么申请？住宿费多少？",
+    "llm_variants": [
+      "学生宿舍的申请流程是什么？住宿费用是多少？",
+      "如何办理学生宿舍入住手续？住宿收费标准是怎样的？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "rewrite_files": [
+      "1 浙工大发〔2022〕46号浙江工业大学本科学生荣誉称号评定及管理办法.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 93,
+    "question": "期末考试挂科了怎么补考？",
+    "dict_rewritten": "期末考试挂科了怎么补考？ 不及格课程 重修",
+    "llm_variants": [
+      "期末考试不及格课程如何申请补考？",
+      "期末考试不及格课程的重修流程是什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "2026年大学生AI+信息素养大赛客观题命题范围.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 94,
+    "question": "出国留学需要学校开什么证明？",
+    "dict_rewritten": "出国留学需要学校开什么证明？",
+    "llm_variants": [
+      "出国留学需要学校开具哪些证明文件？",
+      "办理出国留学手续时，学校需要提供哪些官方证明材料？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": false,
+    "rewrite_top3": false,
+    "hybrid_rank": null,
+    "rewrite_rank": null,
+    "rank_change": null,
+    "hybrid_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "rewrite_files": [
+      "2025-2026综合测评分材料提交指南.docx",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "2025-2026综合测评分材料提交指南.docx"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 95,
+    "question": "计算机学院 25 级学生能申请哪些奖学金？",
+    "dict_rewritten": "计算机学院 25 级学生能申请哪些奖学金？",
+    "llm_variants": [
+      "计算机学院2025级学生可以申请哪些奖学金？",
+      "计算机学院2025级学生符合条件申请哪些奖学金项目？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf"
+    ],
+    "rewrite_files": [
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "7 计算机学院2025-2026学年各类奖学金及荣誉称号名额分布.pdf",
+      "计算机科学与技术学院、软件学院奖学金评定及管理办法（2022年版）.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 96,
+    "question": "网络工程和软件工程专业的毕业学分要求一样吗？",
+    "dict_rewritten": "网络工程和软件工程专业的毕业学分要求一样吗？",
+    "llm_variants": [
+      "网络工程专业与软件工程专业的毕业学分要求是否相同？",
+      "网络工程和软件工程两个专业的毕业学分要求是否存在差异？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "rewrite_files": [
+      "2024数字媒体技术培养计划.pdf",
+      "2024网络工程培养计划.pdf",
+      "2024网络工程培养计划.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 97,
+    "question": "创新学分和综测创新创业加分有什么区别？",
+    "dict_rewritten": "创新学分和综测创新创业加分有什么区别？ 综合测评",
+    "llm_variants": [
+      "创新学分与综合测评中创新创业加分有何区别？",
+      "综合测评中的创新创业加分和创新学分在认定标准上有什么不同？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "2025-2026学年度第二学期创新分申请补充说明.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "rewrite_files": [
+      "计算机科学与技术学院、软件学院创新学分认.pdf",
+      "2025-2026学年度第二学期创新分申请补充说明.docx",
+      "计算机科学与技术学院、软件学院创新学分认.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 98,
+    "question": "英语免修和公共英语课是什么关系？",
+    "dict_rewritten": "英语免修和公共英语课是什么关系？ 公共英语课程免修",
+    "llm_variants": [
+      "公共英语课程免修与公共英语课之间有何关联？",
+      "公共英语课程免修是否等同于公共英语课的免修条件？"
+    ],
+    "hybrid_top1": true,
+    "rewrite_top1": true,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 1,
+    "rewrite_rank": 1,
+    "rank_change": 0,
+    "hybrid_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf"
+    ],
+    "rewrite_files": [
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "浙江工业大学本科生公共英语课程免修、重考.pdf",
+      "关于本科生公共英语课程成绩替换的申请操作.pdf"
+    ],
+    "change": "unchanged"
+  },
+  {
+    "id": 99,
+    "question": "计算机学院学生想申请勤工助学，需要满足什么条件？",
+    "dict_rewritten": "计算机学院学生想申请勤工助学，需要满足什么条件？",
+    "llm_variants": [
+      "计算机学院学生申请勤工助学需要满足哪些条件？",
+      "计算机学院学生申请勤工助学的资格要求是什么？"
+    ],
+    "hybrid_top1": false,
+    "rewrite_top1": false,
+    "hybrid_top3": true,
+    "rewrite_top3": true,
+    "hybrid_rank": 2,
+    "rewrite_rank": 2,
+    "rank_change": 0,
+    "hybrid_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx"
+    ],
+    "rewrite_files": [
+      "勤工助学.docx",
+      "屏峰勤工助学岗位招募通知.pdf",
+      "勤工助学.docx"
+    ],
+    "change": "unchanged"
+  }
+]
