@@ -1,7 +1,9 @@
 """Milvus 向量存储：支持业务标签过滤。"""
 import os
 import re
+import time
 import unicodedata
+from pathlib import Path
 from typing import Optional
 
 from langchain_core.embeddings import Embeddings
@@ -17,6 +19,15 @@ EMBEDDING_API_KEY = os.getenv("LLM_API_KEY", "")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-zh-v1.5")
 MILVUS_URI = os.getenv("MILVUS_URI", "./milvus_academic.db")
 COLLECTION_NAME = "academic_affairs"
+
+# 已知模型的向量维度映射（用于失败兜底时的零向量占位）
+MODEL_DIM_MAP = {
+    "BAAI/bge-large-zh-v1.5": 1024,
+    "BAAI/bge-large-en-v1.5": 1024,
+    "BAAI/bge-m3": 1024,
+    "BAAI/bge-base-zh-v1.5": 768,
+    "BAAI/bge-small-zh-v1.5": 512,
+}
 
 
 def sanitize_text(text: str, max_length: int = 2000) -> str:
@@ -72,26 +83,37 @@ def sanitize_text(text: str, max_length: int = 2000) -> str:
 class SiliconFlowEmbeddings(Embeddings):
     """兼容 SiliconFlow 的 Embedding 封装，带失败兜底链路。"""
 
-    def __init__(self, base_url: str, api_key: str, model: str):
+    def __init__(self, base_url: str, api_key: str, model: str, dim: int = None):
         self.base_url = base_url
         self.api_key = api_key
         self.model = model
+        self.dim = dim or MODEL_DIM_MAP.get(model, 1024)
         self._session = requests.Session()
         self._session.headers.update({
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
         })
         self._failed_texts = []  # 记录失败的文本，供后续扩展备用 API
+        # 延迟与成本追踪
+        self._total_latency = 0.0
+        self._total_api_calls = 0
+        self._total_tokens = 0
 
     def _call_api(self, texts: list[str]) -> list[list[float]]:
-        """单次调用 Embedding API。"""
+        """单次调用 Embedding API，同时记录延迟和 token 消耗。"""
+        start = time.time()
         resp = self._session.post(
             f"{self.base_url}/embeddings",
             json={"model": self.model, "input": texts},
             timeout=60,
         )
+        self._total_latency += time.time() - start
+        self._total_api_calls += 1
         resp.raise_for_status()
         data = resp.json()
+        # 累计 token 消耗（API 返回 usage 字段时）
+        usage = data.get("usage", {})
+        self._total_tokens += usage.get("total_tokens", 0)
         results = sorted(data["data"], key=lambda x: x["index"])
         return [item["embedding"] for item in results]
 
@@ -130,7 +152,7 @@ class SiliconFlowEmbeddings(Embeddings):
             if not valid_indices:
                 print(f"⚠️ 批次 {batch_idx} 清洗后全部为空，放弃")
                 # 用零向量占位（或跳过）
-                all_embeddings.extend([[0.0] * 1024] * len(batch))
+                all_embeddings.extend([[0.0] * self.dim] * len(batch))
                 continue
 
             cleaned_batch = [cleaned_batch[j] for j in valid_indices]
@@ -144,7 +166,7 @@ class SiliconFlowEmbeddings(Embeddings):
                         result.append(embeddings[emb_idx])
                         emb_idx += 1
                     else:
-                        result.append([0.0] * 1024)  # 零向量占位
+                        result.append([0.0] * self.dim)  # 零向量占位
                 all_embeddings.extend(result)
                 print(f"✅ 批次 {batch_idx} 温和清洗后成功")
                 continue
@@ -159,11 +181,11 @@ class SiliconFlowEmbeddings(Embeddings):
                     sub_texts = [text[k:k+500] for k in range(0, len(text), 500)]
                     sub_texts = [t for t in sub_texts if t.strip()]
                     if not sub_texts:
-                        sub_embeddings.append([0.0] * 1024)
+                        sub_embeddings.append([0.0] * self.dim)
                         continue
                     sub_embs = self._call_api(sub_texts)
                     # 取平均作为该文本的向量
-                    avg_emb = [sum(e[d] for e in sub_embs) / len(sub_embs) for d in range(1024)]
+                    avg_emb = [sum(e[d] for e in sub_embs) / len(sub_embs) for d in range(self.dim)]
                     sub_embeddings.append(avg_emb)
 
                 # 还原顺序
@@ -174,7 +196,7 @@ class SiliconFlowEmbeddings(Embeddings):
                         result.append(sub_embeddings[emb_idx])
                         emb_idx += 1
                     else:
-                        result.append([0.0] * 1024)
+                        result.append([0.0] * self.dim)
                 all_embeddings.extend(result)
                 print(f"✅ 批次 {batch_idx} 分段重试后成功")
                 continue
@@ -182,7 +204,7 @@ class SiliconFlowEmbeddings(Embeddings):
                 print(f"❌ 批次 {batch_idx} 分段重试仍失败: {e3}，放弃此批次")
                 self._failed_texts.extend(batch)
                 # 零向量占位
-                all_embeddings.extend([[0.0] * 1024] * len(batch))
+                all_embeddings.extend([[0.0] * self.dim] * len(batch))
 
         if self._failed_texts:
             print(f"\n⚠️ 共 {len(self._failed_texts)} 条文本 Embedding 失败，已用零向量占位")
@@ -193,14 +215,31 @@ class SiliconFlowEmbeddings(Embeddings):
     def embed_query(self, text: str) -> list[float]:
         return self.embed_documents([text])[0]
 
+    def get_stats(self) -> dict:
+        """返回本次生命周期内的 API 调用统计（延迟、调用次数、token 消耗）。"""
+        return {
+            "total_latency_s": round(self._total_latency, 2),
+            "total_api_calls": self._total_api_calls,
+            "total_tokens": self._total_tokens,
+        }
 
-def build_embeddings() -> SiliconFlowEmbeddings:
-    """构建 Embedding 实例。"""
-    return SiliconFlowEmbeddings(EMBEDDING_BASE_URL, EMBEDDING_API_KEY, EMBEDDING_MODEL)
+
+def build_embeddings(model: str = None) -> SiliconFlowEmbeddings:
+    """构建 Embedding 实例，可指定模型名（默认取环境变量或内置默认值）。"""
+    return SiliconFlowEmbeddings(EMBEDDING_BASE_URL, EMBEDDING_API_KEY, model or EMBEDDING_MODEL)
 
 
-def build_vector_store(chunks: list[DocumentChunk], drop_old: bool = True) -> Milvus:
+def build_vector_store(
+    chunks: list[DocumentChunk],
+    drop_old: bool = True,
+    collection_name: str = COLLECTION_NAME,
+    embedding_model: str = None,
+) -> Milvus:
     """将文档片段存入 Milvus，支持业务标签字段。
+
+    参数：
+    - collection_name: Milvus collection 名称（默认 academic_affairs）
+    - embedding_model: Embedding 模型名（默认取环境变量或内置默认值）
 
     副作用：同时把 chunk 语料离线导出到 data/processed/chunks.json，
     供 BM25 等不依赖 Milvus 的检索器复用。
@@ -252,8 +291,8 @@ def build_vector_store(chunks: list[DocumentChunk], drop_old: bool = True) -> Mi
     # 创建 Milvus 向量库
     vectorstore = Milvus.from_documents(
         documents=docs,
-        embedding=build_embeddings(),
-        collection_name=COLLECTION_NAME,
+        embedding=build_embeddings(embedding_model),
+        collection_name=collection_name,
         connection_args={"uri": MILVUS_URI},
         drop_old=drop_old,
     )
@@ -262,12 +301,15 @@ def build_vector_store(chunks: list[DocumentChunk], drop_old: bool = True) -> Mi
     return vectorstore
 
 
-def load_vector_store() -> Milvus:
-    """加载已存在的 Milvus 向量库。"""
-    embeddings = build_embeddings()
+def load_vector_store(
+    collection_name: str = COLLECTION_NAME,
+    embedding_model: str = None,
+) -> Milvus:
+    """加载已存在的 Milvus 向量库，可指定 collection 和模型。"""
+    embeddings = build_embeddings(embedding_model)
     vectorstore = Milvus(
         embedding_function=embeddings,
-        collection_name=COLLECTION_NAME,
+        collection_name=collection_name,
         connection_args={"uri": MILVUS_URI},
     )
     return vectorstore
