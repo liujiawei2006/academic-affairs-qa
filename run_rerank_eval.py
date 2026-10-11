@@ -1,18 +1,26 @@
-"""阶段 3 增量评估：改写 vs 改写+Rerank。
+"""阶段 3 增量评估：hybrid vs hybrid+Rerank vs hybrid+Rerank+文档级去重。
 
 对比实验：
-- rewrite（阶段 2 最优配置，对照组）
-- rewrite + rerank（SiliconFlow Rerank API 精排，实验组）
+- hybrid（阶段 1 最优配置 weighted_05_05，对照组）
+- hybrid + rerank（SiliconFlow Rerank API 精排，实验组）
+- hybrid + rerank + dedup（文档级去重，同 source_file 最多保留 N 个 chunk）
+
+注意：改写模块已在阶段 2 验证为净效果为负并下线，
+      因此 Rerank 直接挂在 hybrid 上，而非 rewrite 上。
 
 产出物：
-- docs/eval_results/rerank/{result.json, report.md}
-- docs/eval_results/rerank_comparison.json（逐题排名对比）
+- docs/eval_results/hybrid_rerank/{result.json, report.md}
+- docs/eval_results/hybrid_rerank_dedup/{result.json, report.md}（仅 --dedup 时）
+- docs/eval_results/hybrid_rerank_comparison.json（逐题排名对比）
 - 控制台输出对比表 + rerank 前后排名明细
 
 使用方式：
     python run_rerank_eval.py
+    python run_rerank_eval.py --dedup
+    python run_rerank_eval.py --dedup --max-per-source 1
+    python run_rerank_eval.py --dedup --boost          # 联合条件时效补偿对照实验
+    python run_rerank_eval.py --dedup --boost --boost-value 0.05
     python run_rerank_eval.py --fetch-k 20 --top-k 5
-    python run_rerank_eval.py --dataset tests/golden_dataset.jsonl
 """
 import argparse
 import json
@@ -26,7 +34,6 @@ from src.retrieval.bm25_retriever import BM25Retriever
 from src.retrieval.fusion import HybridRetriever
 from src.retrieval.reranker import RerankRetriever, SiliconFlowReranker
 from src.vectorstore import load_vector_store
-from src.query.rewriter import CachedLLMRewriter, RewriteRetriever
 
 
 # ---------------------------------------------------------------------------
@@ -63,51 +70,51 @@ class ScoredVectorRetriever:
 # 逐题排名对比
 # ---------------------------------------------------------------------------
 def build_comparison(
-    rewrite_result: dict,
+    hybrid_result: dict,
     rerank_result: dict,
 ) -> list[dict]:
     """生成逐题对比明细：rerank 前排名 → rerank 后排名。"""
-    rewrite_per_q = {p["id"]: p for p in rewrite_result.get("per_question", [])}
+    hybrid_per_q = {p["id"]: p for p in hybrid_result.get("per_question", [])}
     rerank_per_q = {p["id"]: p for p in rerank_result.get("per_question", [])}
 
     comparison = []
-    for qid in sorted(rewrite_per_q.keys()):
-        rw = rewrite_per_q[qid]
+    for qid in sorted(hybrid_per_q.keys()):
+        hb = hybrid_per_q[qid]
         rr = rerank_per_q.get(qid, {})
 
-        expected = set(rw.get("expected_source_files", []))
-        rw_rank = _find_rank(rw, expected)
+        expected = set(hb.get("expected_source_files", []))
+        hb_rank = _find_rank(hb, expected)
         rr_rank = _find_rank(rr, expected)
 
-        rw_hit1 = rw.get("hit", {}).get("1", False)
+        hb_hit1 = hb.get("hit", {}).get("1", False)
         rr_hit1 = rr.get("hit", {}).get("1", False)
-        rw_hit3 = rw.get("hit", {}).get("3", False)
+        hb_hit3 = hb.get("hit", {}).get("3", False)
         rr_hit3 = rr.get("hit", {}).get("3", False)
 
         # 变化分类
-        if rr_hit1 and not rw_hit1:
+        if rr_hit1 and not hb_hit1:
             change = "improved_top1"
-        elif rr_hit3 and not rw_hit3:
+        elif rr_hit3 and not hb_hit3:
             change = "improved_top3"
-        elif rw_hit1 and not rr_hit1:
+        elif hb_hit1 and not rr_hit1:
             change = "regressed_top1"
-        elif rw_hit3 and not rr_hit3:
+        elif hb_hit3 and not rr_hit3:
             change = "regressed_top3"
         else:
             change = "unchanged"
 
         comparison.append({
             "id": qid,
-            "question": rw["question"],
-            "is_table_question": rw.get("is_table_question", False),
-            "rewrite_top1": rw_hit1,
+            "question": hb["question"],
+            "is_table_question": hb.get("is_table_question", False),
+            "hybrid_top1": hb_hit1,
             "rerank_top1": rr_hit1,
-            "rewrite_top3": rw_hit3,
+            "hybrid_top3": hb_hit3,
             "rerank_top3": rr_hit3,
-            "rewrite_rank": rw_rank,
+            "hybrid_rank": hb_rank,
             "rerank_rank": rr_rank,
-            "rank_change": (rw_rank - rr_rank) if (rw_rank and rr_rank) else None,
-            "rewrite_files": rw.get("top5_retrieved_files", [])[:5],
+            "rank_change": (hb_rank - rr_rank) if (hb_rank and rr_rank) else None,
+            "hybrid_files": hb.get("top5_retrieved_files", [])[:5],
             "rerank_files": rr.get("top5_retrieved_files", [])[:5],
             "change": change,
         })
@@ -127,17 +134,17 @@ def _find_rank(per_q_detail: dict, expected_files: set) -> int | None:
 # ---------------------------------------------------------------------------
 # 对比汇总表
 # ---------------------------------------------------------------------------
-def print_comparison(rewrite_result: dict, rerank_result: dict):
-    """打印改写 vs 改写+Rerank 的对比表。"""
+def print_comparison(hybrid_result: dict, rerank_result: dict):
+    """打印 hybrid vs hybrid+Rerank 的对比表。"""
     print("\n" + "=" * 70)
-    print("   阶段 3 增量评估：改写 vs 改写+Rerank")
+    print("   阶段 3 增量评估：hybrid vs hybrid+Rerank（生产链路）")
     print("=" * 70)
 
     header = f"{'配置':<25} {'Top1':>8} {'Top3':>8} {'Top5':>8} {'表格Top1':>10} {'表格Top3':>10}"
     print(header)
     print("-" * 70)
 
-    for label, result in [("rewrite", rewrite_result), ("rewrite+rerank", rerank_result)]:
+    for label, result in [("hybrid", hybrid_result), ("hybrid+rerank", rerank_result)]:
         recall = result.get("recall", {})
         top1 = recall.get("top1_recall", 0)
         top3 = recall.get("top3_recall", 0)
@@ -152,12 +159,12 @@ def print_comparison(rewrite_result: dict, rerank_result: dict):
     print("=" * 70)
 
     # 增量
-    rw_recall = rewrite_result.get("recall", {})
+    hb_recall = hybrid_result.get("recall", {})
     rr_recall = rerank_result.get("recall", {})
-    print("\n增量（改写+Rerank - 改写）:")
+    print("\n增量（hybrid+Rerank - hybrid）:")
     for key in ["top1_recall", "top3_recall", "top5_recall",
                 "top1_table_recall", "top3_table_recall"]:
-        delta = rr_recall.get(key, 0) - rw_recall.get(key, 0)
+        delta = rr_recall.get(key, 0) - hb_recall.get(key, 0)
         sign = "+" if delta >= 0 else ""
         print(f"  {key}: {sign}{delta:.1%}")
 
@@ -175,7 +182,7 @@ def print_rank_changes(comparison: list[dict]):
                 f"  Q{c['id']} {table_mark}: {c['question']}"
             )
             print(
-                f"    排名: {c['rewrite_rank']} → {c['rerank_rank']}"
+                f"    排名: {c['hybrid_rank']} → {c['rerank_rank']}"
                 f"（{c['change']}）"
             )
             print(f"    rerank top-3: {c['rerank_files'][:3]}")
@@ -188,7 +195,7 @@ def print_rank_changes(comparison: list[dict]):
                 f"  Q{c['id']} {table_mark}: {c['question']}"
             )
             print(
-                f"    排名: {c['rewrite_rank']} → {c['rerank_rank']}"
+                f"    排名: {c['hybrid_rank']} → {c['rerank_rank']}"
                 f"（{c['change']}）"
             )
             print(f"    rerank top-3: {c['rerank_files'][:3]}")
@@ -201,7 +208,7 @@ def print_rank_changes(comparison: list[dict]):
 # 主流程
 # ---------------------------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser(description="阶段 3 增量评估：改写 vs 改写+Rerank")
+    parser = argparse.ArgumentParser(description="阶段 3 增量评估：hybrid vs hybrid+Rerank（生产链路）")
     parser.add_argument(
         "--dataset", type=str, default="tests/golden_dataset.jsonl",
         help="黄金测试集路径",
@@ -214,11 +221,29 @@ def main():
         "--top-k", type=int, default=5,
         help="Rerank 出口保留数（精排后取多少条）",
     )
+    parser.add_argument(
+        "--dedup", action="store_true",
+        help="启用文档级去重（同一 source_file 最多保留 max-per-source 个 chunk）",
+    )
+    parser.add_argument(
+        "--max-per-source", type=int, default=2,
+        help="文档级去重：同一 source_file 最多保留几个 chunk（默认 2，需配合 --dedup）",
+    )
+    parser.add_argument(
+        "--boost", action="store_true",
+        help="启用主题感知时效补偿（doc_type=通知 + business_tag 与 query 同主题 + 强时效信号）",
+    )
+    parser.add_argument(
+        "--boost-value", type=float, default=0.08,
+        help="时效补偿量级（tie-break 级，默认 0.08，需配合 --boost）",
+    )
     args = parser.parse_args()
 
     print("=" * 70)
-    print("   阶段 3 增量评估：改写 vs 改写+Rerank")
-    print(f"   Rerank 配置: fetch_k={args.fetch_k}, top_k={args.top_k}")
+    print("   阶段 3 增量评估：hybrid vs hybrid+Rerank（+文档级去重）")
+    dedup_desc = f"启用（max_per_source={args.max_per_source}）" if args.dedup else "关闭"
+    boost_desc = f"启用（boost={args.boost_value}）" if args.boost else "关闭"
+    print(f"   Rerank 配置: fetch_k={args.fetch_k}, top_k={args.top_k}, 文档级去重: {dedup_desc}, 时效补偿: {boost_desc}")
     print("=" * 70)
 
     # 1. 加载测试集
@@ -232,58 +257,61 @@ def main():
     print("  构建 BM25 检索器...")
     bm25_retriever = BM25Retriever(top_k=10)
 
-    # 3. 构建阶段 2 最优配置（weighted_05_05 + rewrite）
-    print("  构建 HybridRetriever (weighted_05_05)...")
-    vec_retriever = ScoredVectorRetriever(vectorstore, k=10)
+    # 3. 构建生产链路基座：hybrid（weighted_05_05，无改写）
+    #    去重开启时扩大 hybrid 输出，确保去重后仍有 top_k 条不同文档
+    hybrid_top_k = args.top_k * 4 if args.dedup else 10
+    print(f"  构建 HybridRetriever (weighted_05_05, top_k={hybrid_top_k})...")
+    vec_retriever = ScoredVectorRetriever(vectorstore, k=hybrid_top_k)
     hybrid = HybridRetriever(
         vec_retriever, bm25_retriever,
-        fusion="weighted", weights=[0.5, 0.5], top_k=10,
+        fusion="weighted", weights=[0.5, 0.5], top_k=hybrid_top_k,
     )
 
-    print("  构建 RewriteRetriever...")
-    rewriter = CachedLLMRewriter()
-    # 让 RewriteRetriever 返回更多候选，供 Rerank 精排
-    rewrite_retriever = RewriteRetriever(hybrid, rewriter, top_k=max(args.fetch_k, 10))
-
-    # 4. 构建 RerankRetriever
-    print("  构建 RerankRetriever (SiliconFlow API)...")
+    # 4. 构建 RerankRetriever（直接挂在 hybrid 上，跳过已下线的改写模块）
+    dedup_label = f"_dedup{args.max_per_source}" if args.dedup else ""
+    boost_label = "_boost" if args.boost else ""
+    result_label = f"hybrid_rerank{dedup_label}{boost_label}"
+    print(f"  构建 RerankRetriever (SiliconFlow API, 去重={'开' if args.dedup else '关'}, 时效补偿={'开' if args.boost else '关'})...")
     reranker = SiliconFlowReranker()
     rerank_retriever = RerankRetriever(
-        base_retriever=rewrite_retriever,
+        base_retriever=hybrid,
         reranker=reranker,
         fetch_k=args.fetch_k,
         top_k=args.top_k,
+        max_per_source=args.max_per_source if args.dedup else None,
+        enable_boost=args.boost,
+        boost=args.boost_value,
     )
 
-    # 5. 加载阶段 2 改写评估结果（对照组）
-    rewrite_result_path = Path("docs/eval_results/rewrite/result.json")
-    if rewrite_result_path.exists():
-        print(f"\n  加载已有改写评估结果: {rewrite_result_path}")
-        with open(rewrite_result_path, encoding="utf-8") as f:
-            rewrite_result = json.load(f)
+    # 5. 加载 hybrid 评估结果（对照组）
+    hybrid_result_path = Path("docs/eval_results/hybrid/result.json")
+    if hybrid_result_path.exists():
+        print(f"\n  加载已有 hybrid 评估结果: {hybrid_result_path}")
+        with open(hybrid_result_path, encoding="utf-8") as f:
+            hybrid_result = json.load(f)
     else:
-        print("\n  未找到改写评估结果，先跑改写评估...")
-        rewrite_result_raw = evaluate_recall(
-            rewrite_retriever, dataset,
+        print("\n  未找到 hybrid 评估结果，先跑 hybrid 评估...")
+        hybrid_result_raw = evaluate_recall(
+            hybrid, dataset,
             top_k_list=[1, 3, 5], max_fetch_k=10,
         )
-        rewrite_result = {
-            "label": "rewrite",
+        hybrid_result = {
+            "label": "hybrid",
             "dataset_path": args.dataset,
-            "recall": rewrite_result_raw["summary"],
-            "per_question": rewrite_result_raw["per_question"],
-            "total_questions": rewrite_result_raw["total_questions"],
-            "table_questions": rewrite_result_raw["table_questions"],
+            "recall": hybrid_result_raw["summary"],
+            "per_question": hybrid_result_raw["per_question"],
+            "total_questions": hybrid_result_raw["total_questions"],
+            "table_questions": hybrid_result_raw["table_questions"],
         }
 
-    # 6. 跑改写+Rerank 评估（实验组）
-    print("\n  跑改写+Rerank 评估（实验组，每题调一次 Rerank API）...")
+    # 6. 跑 hybrid+Rerank 评估（实验组）
+    print(f"\n  跑 {result_label} 评估（每题调一次 Rerank API）...")
     rerank_result_raw = evaluate_recall(
         rerank_retriever, dataset,
         top_k_list=[1, 3, 5], max_fetch_k=args.top_k,
     )
     rerank_result = {
-        "label": "rerank",
+        "label": result_label,
         "dataset_path": args.dataset,
         "recall": rerank_result_raw["summary"],
         "per_question": rerank_result_raw["per_question"],
@@ -294,23 +322,27 @@ def main():
             "backend": "SiliconFlow API",
             "fetch_k": args.fetch_k,
             "top_k": args.top_k,
+            "dedup_enabled": args.dedup,
+            "max_per_source": args.max_per_source if args.dedup else None,
+            "boost_enabled": args.boost,
+            "boost_value": args.boost_value if args.boost else None,
         },
     }
 
     # 7. 落盘
-    _save_to_eval_results(rerank_result, "rerank", "eval_results")
+    _save_to_eval_results(rerank_result, result_label, "eval_results")
 
     # 8. 逐题对比
-    comparison = build_comparison(rewrite_result, rerank_result)
+    comparison = build_comparison(hybrid_result, rerank_result)
 
-    comparison_path = Path("docs/eval_results/rerank_comparison.json")
+    comparison_path = Path("docs/eval_results/hybrid_rerank_comparison.json")
     comparison_path.parent.mkdir(parents=True, exist_ok=True)
     with open(comparison_path, "w", encoding="utf-8") as f:
         json.dump(comparison, f, ensure_ascii=False, indent=2)
     print(f"\n  逐题排名对比已保存: {comparison_path}")
 
     # 9. 打印对比
-    print_comparison(rewrite_result, rerank_result)
+    print_comparison(hybrid_result, rerank_result)
     print_rank_changes(comparison)
 
     # 10. 统计变化分类
@@ -321,7 +353,7 @@ def main():
     for change, count in sorted(change_counts.items()):
         print(f"    {change}: {count} 条")
 
-    print(f"\n  所有结果已落盘: docs/eval_results/rerank/")
+    print(f"\n  所有结果已落盘: docs/eval_results/{result_label}/")
 
 
 if __name__ == "__main__":

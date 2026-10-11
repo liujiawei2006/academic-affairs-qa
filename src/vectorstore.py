@@ -255,7 +255,11 @@ def build_vector_store(
             continue
 
         # 处理元数据：只保留对检索有用的核心字段（Milvus 要求字段一致）
-        core_fields = ("source_file", "business_tag", "academic_year", "chapter", "chunk_strategy", "heading_path")
+        core_fields = (
+            "source_file", "business_tag", "academic_year", "chapter",
+            "chunk_strategy", "heading_path",
+            "doc_type", "effective_date", "scope",
+        )
         metadata = {}
         for k in core_fields:
             v = chunk.metadata.get(k)

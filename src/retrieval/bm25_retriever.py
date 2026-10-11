@@ -87,14 +87,16 @@ class BM25Retriever:
                 # 分数为 0 说明无词重合，跳过
                 continue
             c = self.chunks[i]
+            # 透传 chunk 的全部 metadata（含 doc_type/effective_date/scope 等新字段），
+            # 追加 bm25 score，供下游 metadata_boost 使用
+            meta = dict(c.get("metadata", {}))
+            meta["source_file"] = c["source_file"]
+            meta["chunk_id"] = c.get("chunk_id", "")
+            meta["score"] = float(scores[i])
             results.append(
                 Document(
                     page_content=c["text"],
-                    metadata={
-                        "source_file": c["source_file"],
-                        "chunk_id": c.get("chunk_id", ""),
-                        "score": float(scores[i]),
-                    },
+                    metadata=meta,
                 )
             )
         return results

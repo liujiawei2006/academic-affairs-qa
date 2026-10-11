@@ -21,12 +21,18 @@ class DocumentChunker:
             if part["type"] == "table":
                 # 表格整块保留
                 if len(part["content"]) <= self.chunk_size * 2:
+                    columns = self._extract_table_columns(part["content"])
                     chunk_meta = {**metadata, "content_type": "table"}
+                    if columns:
+                        chunk_meta["table_columns"] = columns
                     chunks.append(DocumentChunk(part["content"], chunk_meta))
                 else:
-                    # 超长表格按行切分，保留表头
-                    for tp in self._split_long_table(part["content"]):
+                    # 超长表格按行切分，保留表头 + 列名下沉到每个 chunk
+                    table_chunks, columns = self._split_long_table(part["content"])
+                    for tp in table_chunks:
                         chunk_meta = {**metadata, "content_type": "table"}
+                        if columns:
+                            chunk_meta["table_columns"] = columns
                         chunks.append(DocumentChunk(tp, chunk_meta))
 
             elif part["type"] == "code":
@@ -162,14 +168,35 @@ class DocumentChunker:
             start += step
         return pieces
 
-    def _split_long_table(self, table_content: str) -> list[str]:
-        """切分超长表格，保留表头。"""
+    def _extract_table_columns(self, table_content: str) -> list[str]:
+        """从表格表头行提取列名列表。"""
+        lines = table_content.strip().split("\n")
+        if not lines:
+            return []
+        header_line = lines[0].strip()
+        if "|" not in header_line:
+            return []
+        columns = [
+            col.strip()
+            for col in header_line.split("|")
+            if col.strip() and col.strip() != "---"
+        ]
+        return columns
+
+    def _split_long_table(self, table_content: str) -> tuple[list[str], list[str]]:
+        """切分超长表格，保留表头，返回 (chunks, columns)。
+
+        每个 chunk 都带表头行（Markdown 表头 + 分隔行），
+        columns 为列名列表，供 metadata 下沉使用。
+        """
         lines = table_content.split("\n")
         if len(lines) < 3:
-            return [table_content]
+            columns = self._extract_table_columns(table_content)
+            return [table_content], columns
 
         header = lines[:2]
         data_lines = lines[2:]
+        columns = self._extract_table_columns(header[0])
 
         chunks = []
         current_chunk = header.copy()
@@ -188,7 +215,7 @@ class DocumentChunker:
         if len(current_chunk) > 2:
             chunks.append("\n".join(current_chunk))
 
-        return chunks
+        return chunks, columns
 
 
 class StructuredChunker:
@@ -227,6 +254,7 @@ class StructuredChunker:
             breadcrumb = " > ".join(heading_path)
 
             for bc in base_chunks:
+                # 所有 chunk（含表格）都添加标题路径前缀，提供 section 上下文
                 text = prefix + bc.content if self.keep_heading_path else bc.content
                 chunk_meta = {
                     **bc.metadata,

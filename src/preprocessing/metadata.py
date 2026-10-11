@@ -1,11 +1,11 @@
-"""元数据提取器：来源、页码、更新时间、业务标签。"""
+"""元数据提取器：来源、页码、更新时间、业务标签、文档类型、时效、适用范围。"""
 import re
 from datetime import datetime
 from pathlib import Path
 
 
 class MetadataExtractor:
-    """元数据提取器：来源、页码、更新时间、业务标签。"""
+    """元数据提取器：来源、页码、更新时间、业务标签、文档类型、时效、适用范围。"""
 
     # 业务标签关键词映射
     BUSINESS_TAG_KEYWORDS = {
@@ -54,6 +54,9 @@ class MetadataExtractor:
             "academic_year": cls._extract_academic_year(filename, content),
             "chapter": cls._extract_chapter(content),
             "update_time": cls._extract_update_time(file_path_obj, content),
+            "doc_type": cls._extract_doc_type(filename, content),
+            "effective_date": cls._extract_effective_date(filename, content),
+            "scope": cls._extract_scope(filename, content),
             "created_at": datetime.now().isoformat(),
         }
 
@@ -129,6 +132,104 @@ class MetadataExtractor:
         match = re.search(r"^#+\s+(.+)$", content, re.MULTILINE)
         if match:
             return match.group(1).strip()
+        return ""
+
+    @classmethod
+    def _extract_doc_type(cls, filename: str, content: str) -> str:
+        """提取文档类型：制度 / 通知 / 培养方案。
+
+        策略：文件名关键词优先，正文兜底。
+        - 培养方案：文件名含"培养计划""培养方案"
+        - 通知：文件名含"通知""说明""指南""举办""招募""命题""补充"
+        - 制度：文件名含"办法""规定""条例""管理办法""评定"
+        - 兜底：正文中强特征词判断
+        """
+        # 培养方案（最高优先级，文件名明确标识）
+        if any(kw in filename for kw in ["培养计划", "培养方案"]):
+            return "培养方案"
+
+        # 通知类（时效性强的文档）
+        notice_keywords = ["通知", "说明", "指南", "举办", "招募", "命题", "补充", "申请操作"]
+        if any(kw in filename for kw in notice_keywords):
+            return "通知"
+
+        # 制度类（长效规章）
+        policy_keywords = ["办法", "规定", "条例", "管理办法", "评定", "管理办法"]
+        if any(kw in filename for kw in policy_keywords):
+            return "制度"
+
+        # 正文兜底：强特征词
+        body = content[:2000]
+        if any(kw in body for kw in ["培养目标", "毕业要求", "主干学科"]):
+            return "培养方案"
+        if any(kw in body for kw in ["特此通知", "现将有关事项通知"]):
+            return "通知"
+
+        return "制度"  # 默认归为制度（大多数教务文档是规章类）
+
+    @classmethod
+    def _extract_effective_date(cls, filename: str, content: str) -> str:
+        """提取时效信息：学年学期 > 学年 > 年份 > 空。
+
+        优先从文件名提取（更可靠），正文兜底。
+        """
+        # 学年+学期（最精确）
+        m = re.search(r"(\d{4})[-—](\d{4})学年.*?第([一二])学期", filename)
+        if m:
+            return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+
+        # 学年（无学期）
+        m = re.search(r"(\d{4})[-—](\d{4})", filename)
+        if m:
+            return f"{m.group(1)}-{m.group(2)}"
+
+        # 单独年份
+        m = re.search(r"(\d{4})年", filename)
+        if m:
+            return m.group(1)
+
+        # 正文兜底
+        m = re.search(r"(\d{4})[-—](\d{4})学年.*?第([一二])学期", content[:500])
+        if m:
+            return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+
+        m = re.search(r"(\d{4})[-—](\d{4})", content[:500])
+        if m:
+            return f"{m.group(1)}-{m.group(2)}"
+
+        return ""
+
+    @classmethod
+    def _extract_scope(cls, filename: str, content: str) -> str:
+        """提取适用范围：校级 / 校区 / 学院。
+
+        策略：文件名关键词判断。
+        - 学院：含具体学院名（"计算机学院""软件学院"等）
+        - 校区：含校区名（"屏峰""朝晖"等）
+        - 校级：含"浙江工业大学"且不含学院/校区限定
+        """
+        # 学院级
+        if any(kw in filename for kw in [
+            "计算机学院", "软件学院", "计算机科学与技术学院",
+            "计算机学院、软件学院", "学院", "名额分布",
+        ]):
+            return "学院"
+
+        # 校区级
+        if any(kw in filename for kw in ["屏峰", "朝晖", "莫干山"]):
+            return "校区"
+
+        # 校级（浙江工业大学开头，或含"浙江工业大学"但无学院/校区限定）
+        if "浙江工业大学" in filename or "浙工大" in filename:
+            return "校级"
+
+        # 正文兜底
+        body = content[:1000]
+        if any(kw in body for kw in ["计算机学院", "软件学院"]):
+            return "学院"
+        if "浙江工业大学" in body:
+            return "校级"
+
         return ""
 
     @classmethod
