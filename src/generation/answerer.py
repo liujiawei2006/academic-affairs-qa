@@ -12,6 +12,7 @@ B2 阶段：启用溯源标注 prompt，模型每个结论必须标注 [N] 引�
     → 返回 {question, answer, citations, sources, context_docs}
 """
 import re
+import time
 
 from langchain_core.documents import Document
 
@@ -105,36 +106,55 @@ class Answerer:
                 "context_docs": list[Document],
                 "verification": VerificationReport | None,  # 校验报告
                 "fallback": FallbackDecision,  # 兜底判定结果
+                "timing": dict,              # 各阶段耗时（秒）
+                "token_usage": dict,         # Token 消耗统计
             }
         """
+        timing = {}  # 各阶段耗时记录
+
         # 1. 检索
+        t0 = time.perf_counter()
         docs = self.retriever.invoke(question)
         top_docs = docs[:top_k]
+        timing["retrieval_s"] = round(time.perf_counter() - t0, 3)
 
         # 2. 前置兜底检查（召回为空 + 超范围问题）→ 直接返回，节省 LLM 调用
         pre_fallback = pre_llm_fallback_check(question, top_docs)
         if pre_fallback.should_fallback:
-            return self._build_fallback_result(question, top_docs, pre_fallback)
+            result = self._build_fallback_result(question, top_docs, pre_fallback)
+            result["timing"] = timing
+            # 前置兜底未调用 LLM，Token 消耗为 0
+            result["token_usage"] = {
+                "prompt_tokens": 0, "completion_tokens": 0,
+                "total_tokens": 0, "call_count": 0,
+            }
+            return result
 
-        # 3. 构建溯源元数据
+        # 3. 构建溯源元数据 + 拼 context
+        t0 = time.perf_counter()
         sources = self._build_citation_sources(top_docs)
-
-        # 4. 拼 context（带编号）
         context = self._build_context(top_docs, sources)
+        timing["context_build_s"] = round(time.perf_counter() - t0, 3)
 
-        # 5. 生成
+        # 4. LLM 生成（记录 Token 消耗前后差值）
+        t0 = time.perf_counter()
+        self.llm.reset_token_stats()  # 重置为本次请求粒度
         prompt = QA_PROMPT_TEMPLATE.format(context=context, question=question)
         answer_text = self.llm.invoke(prompt)
+        timing["llm_s"] = round(time.perf_counter() - t0, 3)
+        token_usage = self.llm.get_token_stats()  # 本次请求的 Token 消耗
 
-        # 6. 后处理：解析引用标注 → 映射回来源
+        # 5. 后处理：解析引用标注 → 映射回来源
         citations = parse_citations(answer_text, sources)
 
-        # 7. 原文事实校验（C3）
+        # 6. 原文事实校验（C3）
         verification = None
         if enable_verify:
+            t0 = time.perf_counter()
             verification = verify(answer_text, top_docs)
+            timing["verify_s"] = round(time.perf_counter() - t0, 3)
 
-        # 8. 后置兜底检查（C3 校验幻觉率过高）→ 覆盖答案
+        # 7. 后置兜底检查（C3 校验幻觉率过高）→ 覆盖答案
         post_fallback = check_fallback(question, top_docs, verification)
         if post_fallback.should_fallback:
             answer_text = FALLBACK_MESSAGE
@@ -148,6 +168,8 @@ class Answerer:
             "context_docs": top_docs,
             "verification": verification,
             "fallback": post_fallback if post_fallback.should_fallback else pre_fallback,
+            "timing": timing,
+            "token_usage": token_usage,
         }
 
     @staticmethod
