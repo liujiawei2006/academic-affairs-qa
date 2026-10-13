@@ -6,17 +6,22 @@
     uvicorn src.api.app:app --host 0.0.0.0 --port 8000
 
 接口：
-    POST /qa      问答接口（JSON 响应）
-    GET  /health  健康检查
+    POST /qa         问答接口（JSON 响应）
+    POST /qa/stream  问答接口（SSE 流式输出）
+    GET  /health     健康检查
 """
 import asyncio
+import json
 import logging
+import os
 import time
 import uuid
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
+from sse_starlette.sse import EventSourceResponse
 
 from src.generation.answerer import Answerer
 from src.generation.citation import CitationSource
@@ -33,12 +38,15 @@ logger = logging.getLogger(__name__)
 # 全局单例（lifespan 中初始化）
 # ---------------------------------------------------------------------------
 _answerer: Answerer | None = None
+_llm_client: LLMClient | None = None
+_vec_store = None  # Milvus 向量库实例，供 /health 探活
 
 
 def _build_retriever():
     """构建生产检索链路：Hybrid(RRF) + Rerank + 文档级去重。"""
-    vec_store = load_vector_store()
-    vec_retriever = vec_store.as_retriever(search_kwargs={"k": 10})
+    global _vec_store
+    _vec_store = load_vector_store()
+    vec_retriever = _vec_store.as_retriever(search_kwargs={"k": 10})
     bm25_retriever = BM25Retriever()
     hybrid = HybridRetriever(vec_retriever, bm25_retriever, fusion="rrf", k=60)
     reranker = SiliconFlowReranker()
@@ -51,16 +59,17 @@ def _build_retriever():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """应用生命周期：启动时初始化全局检索 + 生成组件。"""
-    global _answerer
+    global _answerer, _llm_client
     logger.info("正在初始化检索链路...")
     # 检索链路构建是同步阻塞操作，放到线程池执行
     loop = asyncio.get_event_loop()
     retriever = await loop.run_in_executor(None, _build_retriever)
-    llm = LLMClient()
-    _answerer = Answerer(retriever, llm)
+    _llm_client = LLMClient()
+    _answerer = Answerer(retriever, _llm_client)
     logger.info("检索链路初始化完成")
     yield
     _answerer = None
+    _llm_client = None
     logger.info("应用已关闭")
 
 
@@ -80,27 +89,47 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 @app.middleware("http")
 async def observability_middleware(request: Request, call_next):
-    """为每个请求生成唯一 request_id，记录总耗时。"""
+    """全链路中间件：request_id + 请求耗时 + 全局异常捕获。"""
     request_id = str(uuid.uuid4())[:8]  # 取前 8 位足够标识
     request.state.request_id = request_id
 
     start = time.perf_counter()
-    response: Response = await call_next(request)
-    elapsed = round(time.perf_counter() - start, 3)
+    try:
+        response: Response = await call_next(request)
+        elapsed = round(time.perf_counter() - start, 3)
 
-    # 在响应头中携带 request_id 和耗时，方便调试
-    response.headers["X-Request-ID"] = request_id
-    response.headers["X-Response-Time"] = f"{elapsed}s"
+        # 在响应头中携带 request_id 和耗时，方便调试
+        response.headers["X-Request-ID"] = request_id
+        response.headers["X-Response-Time"] = f"{elapsed}s"
 
-    logger.info(
-        "[%s] %s %s → %s (%.3fs)",
-        request_id,
-        request.method,
-        request.url.path,
-        response.status_code,
-        elapsed,
-    )
-    return response
+        logger.info(
+            "[%s] %s %s → %s (%.3fs)",
+            request_id,
+            request.method,
+            request.url.path,
+            response.status_code,
+            elapsed,
+        )
+        return response
+    except Exception as e:
+        elapsed = round(time.perf_counter() - start, 3)
+        logger.error(
+            "[%s] %s %s 异常: %s (%.3fs)",
+            request_id,
+            request.method,
+            request.url.path,
+            e,
+            elapsed,
+        )
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": "服务器内部错误",
+                "detail": str(e),
+                "request_id": request_id,
+            },
+            headers={"X-Request-ID": request_id},
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -183,8 +212,30 @@ def _serialize_fallback(fb: FallbackDecision) -> FallbackInfo:
 # ---------------------------------------------------------------------------
 @app.get("/health", tags=["系统"])
 async def health():
-    """健康检查。"""
-    return {"status": "ok"}
+    """健康检查：探活 Milvus 向量库 + LLM API 配置。"""
+    checks = {}
+
+    # 1. Milvus 探活：尝试执行轻量操作
+    try:
+        if _vec_store is not None:
+            # 通过 collection 属性检查连接是否正常
+            _ = _vec_store.collection_name
+            checks["milvus"] = True
+        else:
+            checks["milvus"] = False
+    except Exception as e:
+        logger.warning("Milvus 探活失败: %s", e)
+        checks["milvus"] = False
+
+    # 2. LLM 探活：检查 API Key 是否已配置（不做实际 API 调用，避免成本）
+    api_key = os.getenv("LLM_API_KEY", "")
+    checks["llm"] = bool(api_key and api_key != "sk-你的密钥")
+
+    # 3. 整体状态
+    all_ok = all(checks.values())
+    status = "ok" if all_ok else "degraded"
+
+    return {"status": status, "checks": checks}
 
 
 @app.post("/qa", response_model=QAResponse, tags=["问答"])
@@ -196,9 +247,20 @@ async def qa(req: QARequest, request: Request):
     request_id = getattr(request.state, "request_id", "-")
     logger.info("[%s] 收到问题: %s", request_id, req.question[:50])
 
-    # Answerer.answer() 是同步阻塞调用，放到线程池避免阻塞事件循环
-    loop = asyncio.get_event_loop()
-    result = await loop.run_in_executor(None, _answerer.answer, req.question, 5, req.enable_verify)
+    try:
+        # Answerer.answer() 是同步阻塞调用，放到线程池避免阻塞事件循环
+        loop = asyncio.get_event_loop()
+        future = loop.run_in_executor(
+            None, _answerer.answer, req.question, 5, req.enable_verify,
+        )
+        result = await asyncio.wait_for(future, timeout=120)
+    except asyncio.TimeoutError:
+        future.cancel()  # 标记取消（线程仍在运行，但防止结果回写）
+        logger.error("[%s] 问答超时（120s），线程已标记取消: %s", request_id, req.question[:50])
+        raise HTTPException(status_code=504, detail="回答超时，请稍后重试")
+    except Exception as e:
+        logger.error("[%s] 问答异常: %s", request_id, e)
+        raise HTTPException(status_code=500, detail=f"处理异常: {e}")
 
     # 序列化响应
     citations = [_serialize_citation(c) for c in result.get("citations", [])]
@@ -222,3 +284,81 @@ async def qa(req: QARequest, request: Request):
         timing=timing,
         token_usage=token_usage,
     )
+
+
+@app.post("/qa/stream", tags=["问答"])
+async def qa_stream(req: QARequest, request: Request):
+    """流式问答接口：SSE 逐 token 推送答案，最后推送元数据。
+
+    SSE 事件类型：
+        event: token     data: {"content": "..."}        每个文本片段
+        event: fallback  data: {"answer": "...", "reason": "..."}  兜底
+        event: done      data: {"answer": "...", "citations": [...], ...}  流结束元数据
+    """
+    if _answerer is None:
+        raise HTTPException(status_code=503, detail="服务尚未初始化完成")
+
+    request_id = getattr(request.state, "request_id", "-")
+    logger.info("[%s] 流式请求: %s", request_id, req.question[:50])
+
+    async def event_generator():
+        """SSE 事件生成器：将 Answerer 的流式事件转换为 SSE 格式。"""
+        try:
+            async with asyncio.timeout(120):  # 全局超时 120s，与 /qa 一致
+                async for event in _answerer.astream_answer(req.question, top_k=5):
+                    event_type = event["type"]
+
+                    if event_type == "token":
+                        yield {
+                            "event": "token",
+                            "data": json.dumps({"content": event["content"]}, ensure_ascii=False),
+                        }
+
+                    elif event_type == "fallback":
+                        yield {
+                            "event": "fallback",
+                            "data": json.dumps(
+                                {"answer": event["answer"], "reason": event["reason"]},
+                                ensure_ascii=False,
+                            ),
+                        }
+
+                    elif event_type == "done":
+                        # 序列化 citations
+                        citations = [_serialize_citation(c) for c in event.get("citations", [])]
+                        timing = TimingInfo(**event.get("timing", {}))
+                        token_usage = TokenUsage(**event.get("token_usage", {}))
+
+                        logger.info(
+                            "[%s] 流式完成: 引用=%d, Token=%d",
+                            request_id,
+                            len(citations),
+                            token_usage.total_tokens,
+                        )
+
+                        yield {
+                            "event": "done",
+                            "data": json.dumps(
+                                {
+                                    "answer": event["answer"],
+                                    "citations": [c.model_dump() for c in citations],
+                                    "timing": timing.model_dump(),
+                                    "token_usage": token_usage.model_dump(),
+                                },
+                                ensure_ascii=False,
+                            ),
+                        }
+        except TimeoutError:
+            logger.error("[%s] 流式输出超时（120s）", request_id)
+            yield {
+                "event": "error",
+                "data": json.dumps({"error": "回答超时，请稍后重试"}, ensure_ascii=False),
+            }
+        except Exception as e:
+            logger.error("[%s] 流式输出异常: %s", request_id, e)
+            yield {
+                "event": "error",
+                "data": json.dumps({"error": str(e)}, ensure_ascii=False),
+            }
+
+    return EventSourceResponse(event_generator())

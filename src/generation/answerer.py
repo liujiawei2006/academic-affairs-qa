@@ -11,6 +11,7 @@ B2 阶段：启用溯源标注 prompt，模型每个结论必须标注 [N] 引�
     → _resolve_citations() 后处理映射
     → 返回 {question, answer, citations, sources, context_docs}
 """
+import asyncio
 import re
 import time
 
@@ -268,3 +269,77 @@ class Answerer:
             src = cit["source"]
             lines.append(f"  {cit['marker']} {format_citation_inline(src)}")
         return "\n".join(lines)
+
+    async def astream_answer(
+        self, question: str, top_k: int = 5,
+    ):
+        """流式版 answer()：检索同步执行，LLM 生成逐 token 异步输出。
+
+        异步生成器，yield dict 事件：
+            {"type": "token", "content": str}       每个文本片段
+            {"type": "fallback", "answer": str, "reason": str}  兜底（无 LLM 调用）
+            {"type": "done", "answer": str, "citations": list,
+             "timing": dict, "token_usage": dict}  流结束元数据
+
+        用法：
+            async for event in answerer.astream_answer("问题"):
+                if event["type"] == "token":
+                    print(event["content"], end="")
+                elif event["type"] == "done":
+                    print(event["citations"])
+        """
+        timing = {}
+
+        # 1. 检索（同步阻塞，放线程池）
+        t0 = time.perf_counter()
+        docs = await asyncio.to_thread(self.retriever.invoke, question)
+        top_docs = docs[:top_k]
+        timing["retrieval_s"] = round(time.perf_counter() - t0, 3)
+
+        # 2. 前置兜底检查
+        pre_fallback = pre_llm_fallback_check(question, top_docs)
+        if pre_fallback.should_fallback:
+            yield {
+                "type": "fallback",
+                "answer": FALLBACK_MESSAGE,
+                "reason": pre_fallback.reason,
+            }
+            return
+
+        # 3. 构建溯源元数据 + 拼 context
+        t0 = time.perf_counter()
+        sources = self._build_citation_sources(top_docs)
+        context = self._build_context(top_docs, sources)
+        timing["context_build_s"] = round(time.perf_counter() - t0, 3)
+
+        # 4. LLM 流式生成（用差值法避免并发请求的 Token 统计竞态）
+        t0 = time.perf_counter()
+        stats_before = self.llm.get_token_stats()
+        prompt = QA_PROMPT_TEMPLATE.format(context=context, question=question)
+
+        answer_parts = []
+        async for chunk in self.llm.astream(prompt):
+            answer_parts.append(chunk)
+            yield {"type": "token", "content": chunk}
+
+        timing["llm_s"] = round(time.perf_counter() - t0, 3)
+        # 差值计算：本次请求的 Token 消耗 = 流后统计 - 流前统计
+        stats_after = self.llm.get_token_stats()
+        token_usage = {
+            "prompt_tokens": stats_after["prompt_tokens"] - stats_before["prompt_tokens"],
+            "completion_tokens": stats_after["completion_tokens"] - stats_before["completion_tokens"],
+            "total_tokens": stats_after["total_tokens"] - stats_before["total_tokens"],
+            "call_count": stats_after["call_count"] - stats_before["call_count"],
+        }
+
+        # 5. 后处理：解析引用标注
+        answer_text = "".join(answer_parts)
+        citations = parse_citations(answer_text, sources)
+
+        yield {
+            "type": "done",
+            "answer": answer_text,
+            "citations": citations,
+            "timing": timing,
+            "token_usage": token_usage,
+        }

@@ -105,3 +105,33 @@ class LLMClient:
         self._total_completion_tokens = 0
         self._total_tokens = 0
         self._call_count = 0
+
+    async def astream(self, prompt: str, system_prompt: str | None = None):
+        """流式调用 LLM，异步生成器，逐 token  yield 文本片段。
+
+        用法：
+            async for chunk in client.astream("你好"):
+                print(chunk, end="", flush=True)
+
+        流结束后自动累计 Token 消耗（从最后一个 chunk 的 usage_metadata 提取）。
+        失败时 yield 空字符串（不抛异常）。
+        """
+        messages = []
+        sys_p = system_prompt if system_prompt is not None else self.system_prompt
+        if sys_p:
+            messages.append(SystemMessage(content=sys_p))
+        messages.append(HumanMessage(content=prompt))
+
+        try:
+            last_chunk = None
+            async for chunk in self.llm.astream(messages):
+                content = chunk.content
+                if content:
+                    yield content
+                last_chunk = chunk
+            # 流结束后从最后一个 chunk 提取 Token 消耗
+            if last_chunk is not None:
+                self._extract_token_usage(last_chunk)
+        except Exception as e:
+            print(f"  LLM 流式调用失败: {e}")
+            yield ""
