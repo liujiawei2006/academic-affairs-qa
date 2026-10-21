@@ -6,9 +6,11 @@
     uvicorn src.api.app:app --host 0.0.0.0 --port 8000
 
 接口：
-    POST /qa         问答接口（JSON 响应）
-    POST /qa/stream  问答接口（SSE 流式输出）
-    GET  /health     健康检查
+    POST /qa          问答接口（JSON 响应）
+    POST /qa/stream   问答接口（SSE 流式输出）
+    GET  /health      健康检查
+    GET  /dashboard   可观测性看板
+    GET  /api/history 请求历史 API
 """
 import asyncio
 import json
@@ -19,9 +21,11 @@ import uuid
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request, Response
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
+
+from src.api.history import get_history, get_stats, record_request
 
 from src.generation.answerer import Answerer
 from src.generation.citation import CitationSource
@@ -276,6 +280,36 @@ async def qa(req: QARequest, request: Request):
         token_usage.total_tokens,
     )
 
+    # 记录召回详情到历史（供看板展示）
+    total_s = timing.retrieval_s + timing.context_build_s + timing.llm_s + timing.verify_s
+    retrieved_docs = [
+        {"doc_title": c.doc_title, "source_file": c.source_file, "article": c.article}
+        for c in citations
+    ]
+    # 结构化日志（JSON 格式，方便日志系统检索）
+    logger.info(
+        "[%s] 召回详情: %s",
+        request_id,
+        json.dumps(
+            {"docs": retrieved_docs, "fallback": fallback.should_fallback},
+            ensure_ascii=False,
+        ),
+    )
+    # 写入内存历史
+    from datetime import datetime
+    record_request({
+        "request_id": request_id,
+        "question": req.question,
+        "timestamp": datetime.now().isoformat(),
+        "total_s": round(total_s, 3),
+        "retrieval_s": timing.retrieval_s,
+        "llm_s": timing.llm_s,
+        "total_tokens": token_usage.total_tokens,
+        "citation_count": len(citations),
+        "fallback": fallback.should_fallback,
+        "retrieved_docs": retrieved_docs,
+    })
+
     return QAResponse(
         question=result["question"],
         answer=result["answer"],
@@ -362,3 +396,155 @@ async def qa_stream(req: QARequest, request: Request):
             }
 
     return EventSourceResponse(event_generator())
+
+
+# ---------------------------------------------------------------------------
+# 可观测性看板
+# ---------------------------------------------------------------------------
+@app.get("/api/history", tags=["系统"])
+async def api_history(limit: int = 50):
+    """请求历史 API：返回最近 N 条请求记录。"""
+    return {
+        "history": get_history(limit),
+        "stats": get_stats(),
+    }
+
+
+@app.get("/dashboard", response_class=HTMLResponse, tags=["系统"])
+async def dashboard():
+    """可观测性看板：展示最近请求的耗时/Token/召回详情。"""
+    return DASHBOARD_HTML
+
+
+# 看板 HTML（纯前端，通过 /api/history 获取数据）
+DASHBOARD_HTML = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教务问答系统 - 可观测性看板</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+  .header { background: #1a73e8; color: white; padding: 20px 24px; }
+  .header h1 { font-size: 20px; font-weight: 500; }
+  .header p { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat-card { background: white; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .stat-card .label { font-size: 12px; color: #666; text-transform: uppercase; }
+  .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; color: #1a73e8; }
+  .stat-card .unit { font-size: 12px; color: #999; }
+  .section { background: white; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .section h2 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #333; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px; border-bottom: 2px solid #e0e0e0; color: #666; font-weight: 500; }
+  td { padding: 8px; border-bottom: 1px solid #f0f0f0; }
+  tr:hover td { background: #f8f9fa; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+  .badge-ok { background: #e6f4ea; color: #1e8e3e; }
+  .badge-fallback { background: #fce8e6; color: #d93025; }
+  .docs-cell { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .refresh-btn { background: #1a73e8; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+  .refresh-btn:hover { background: #1557b0; }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>教务问答系统 - 可观测性看板</h1>
+  <p>最近请求的耗时 / Token / 召回详情</p>
+</div>
+<div class="container">
+  <div class="stats-grid" id="statsGrid"></div>
+  <div class="section">
+    <div class="toolbar">
+      <h2>最近请求记录</h2>
+      <button class="refresh-btn" onclick="loadData()">刷新</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>问题</th>
+          <th>耗时</th>
+          <th>检索</th>
+          <th>LLM</th>
+          <th>Token</th>
+          <th>引用</th>
+          <th>状态</th>
+          <th>召回文档</th>
+        </tr>
+      </thead>
+      <tbody id="historyTable"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+async function loadData() {
+  try {
+    const resp = await fetch('/api/history?limit=50');
+    const data = await resp.json();
+    renderStats(data.stats);
+    renderHistory(data.history);
+  } catch (e) {
+    console.error('加载数据失败:', e);
+  }
+}
+
+function renderStats(stats) {
+  const grid = document.getElementById('statsGrid');
+  grid.innerHTML = [
+    statCard('总请求数', stats.total_requests, ''),
+    statCard('平均耗时', stats.avg_total_s, 's'),
+    statCard('平均检索', stats.avg_retrieval_s, 's'),
+    statCard('平均 LLM', stats.avg_llm_s, 's'),
+    statCard('平均 Token', stats.avg_tokens, ''),
+    statCard('平均引用', stats.avg_citations, ''),
+    statCard('兜底率', stats.fallback_rate + '%', stats.fallback_count + ' 次'),
+  ].join('');
+}
+
+function statCard(label, value, unit) {
+  return `<div class="stat-card"><div class="label">${label}</div><div class="value">${value}<span class="unit"> ${unit}</span></div></div>`;
+}
+
+function renderHistory(history) {
+  const tbody = document.getElementById('historyTable');
+  if (!history.length) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#999;padding:20px">暂无请求记录</td></tr>';
+    return;
+  }
+  tbody.innerHTML = history.map(r => {
+    const time = new Date(r.timestamp).toLocaleTimeString('zh-CN');
+    const q = r.question.length > 20 ? r.question.slice(0, 20) + '...' : r.question;
+    const status = r.fallback
+      ? '<span class="badge badge-fallback">兜底</span>'
+      : '<span class="badge badge-ok">正常</span>';
+    const docs = (r.retrieved_docs || []).map(d => d.doc_title).join(', ');
+    return `<tr>
+      <td>${time}</td>
+      <td title="${escapeHtml(r.question)}">${escapeHtml(q)}</td>
+      <td>${r.total_s.toFixed(2)}s</td>
+      <td>${r.retrieval_s.toFixed(2)}s</td>
+      <td>${r.llm_s.toFixed(2)}s</td>
+      <td>${r.total_tokens}</td>
+      <td>${r.citation_count}</td>
+      <td>${status}</td>
+      <td class="docs-cell" title="${escapeHtml(docs)}">${escapeHtml(docs)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+// 初始加载 + 每 10s 自动刷新
+loadData();
+setInterval(loadData, 10000);
+</script>
+</body>
+</html>"""
