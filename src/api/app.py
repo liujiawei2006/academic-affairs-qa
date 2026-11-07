@@ -19,9 +19,11 @@ import os
 import time
 import uuid
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request, Response
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
 
@@ -86,6 +88,14 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR / "static"), name="frontend")
+
+
+@app.get("/", response_class=FileResponse, include_in_schema=False)
+async def index():
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 # ---------------------------------------------------------------------------

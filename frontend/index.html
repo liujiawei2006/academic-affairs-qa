@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#020306">
+  <meta name="description" content="教务政策智能问答。每一次提问，都有据可循。">
+  <title>ACADEMIC AI — 有据可循</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23020306'/%3E%3Ccircle cx='20' cy='20' r='12' fill='none' stroke='%238aaaff'/%3E%3Ccircle cx='20' cy='20' r='5' fill='%23a9c9ff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./static/styles.css">
+  <script src="./static/scene.js" defer></script>
+  <script src="./static/qa.js" defer></script>
+</head>
+<body>
+  <main class="experience" id="experience" data-scene="iris">
+    <canvas id="iris" aria-label="蓝白色光纤虹膜，开场动画后随鼠标转动" role="img"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <section class="hero-copy" aria-label="教务政策智能问答">
+      <p class="eyebrow">SEE BEYOND THE QUESTION</p>
+      <h1>LEARN <em>to see</em><br>BRILLIANTLY<span class="period">.</span></h1>
+      <p class="hero-caption">每一次提问，都有据可循。</p>
+    </section>
+
+    <div class="scene-rail" aria-hidden="true"><i></i><i class="active"></i><i></i><i></i></div>
+
+    <footer class="bottom-bar">
+      <div class="footnote"><span class="status-dot"></span><span>教务政策 · 智能问答<br><span class="muted">ANSWERS ROOTED IN POLICY.</span></span></div>
+      <div class="ask-wrap">
+        <section class="answer-panel" id="answer-panel" aria-labelledby="answer-heading" hidden>
+          <div class="panel-top"><span class="panel-label" id="answer-heading">THE ANSWER / 教务问答</span><button class="close-button" id="close-answer" type="button" aria-label="关闭问答结果">×</button></div>
+          <p class="asked-question" id="asked-question"></p>
+          <div class="answer-status" id="answer-status" role="status" aria-live="polite"></div>
+          <div class="answer-content" id="answer-content"></div>
+          <section class="sources" id="sources" aria-labelledby="sources-heading" hidden><h2 id="sources-heading"><span>POLICY EVIDENCE</span>政策依据</h2><div id="source-list"></div></section>
+          <p class="answer-meta" id="answer-meta"></p>
+        </section>
+        <form id="ask-form" class="ask-form" role="search" aria-label="教务政策问答">
+          <span class="search-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg></span>
+          <label class="sr-only" for="question">输入教务政策问题</label>
+          <input id="question" name="question" type="text" maxlength="500" placeholder="关于教务，你想了解什么？" required autocomplete="off" enterkeyhint="search">
+          <span class="ask-hint" aria-hidden="true">ASK AI</span>
+          <button id="submit-question" class="send-button" type="submit" aria-label="提交问题"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+        </form>
+        <div class="search-caption"><span>教务问答 + 政策依据</span><span>GROUNDED IN KNOWLEDGE ↗</span></div>
+      </div>
+      <div class="interaction-note"><span id="interaction-label">MOVE TO EXPLORE</span><span class="coordinate" id="coordinates">X 0.00 / Y 0.00</span></div>
+    </footer>
+  </main>
+</body>
+</html>
