@@ -5,6 +5,8 @@
 
 自建 **120 题黄金测试集**驱动五级消融优化，全部实验结果落盘可复现。
 
+项目提供浏览器问答首页。启动服务后，在页面底部输入教务问题，即可查看回答和对应的政策引用。
+
 | 核心指标 | 纯向量基线 | 生产链路（Hybrid + Rerank + 去重） | 增量 |
 |---|---|---|---|
 | Top-1 召回率 | 75.89% | **78.57%** | +2.68pp |
@@ -24,6 +26,7 @@
 - [技术栈](#-技术栈)
 - [系统架构](#-系统架构)
 - [快速开始](#-快速开始)
+- [网页问答](#网页问答)
 - [API 接口](#-api-接口)
 - [检索链路与优化历程](#-检索链路与优化历程)
 - [评估体系](#-评估体系)
@@ -48,6 +51,7 @@
 | 生成模型 | DeepSeek / Qwen2.5（OpenAI 兼容接口，`.env` 可切换） |
 | 文档解析 | `pdfplumber`（PDF）、`python-docx`（Word）、`beautifulsoup4`（HTML）、`rapidocr-onnxruntime`（扫描件 OCR 兜底） |
 | 服务层 | FastAPI + Uvicorn + `sse-starlette`（SSE 流式）+ `httpx`（异步压测） |
+| 前端 | HTML、CSS、原生 JavaScript 与 Canvas 2D，由 FastAPI 同源提供 |
 | 评估 | 自建黄金测试集 + 统一评估入口（`src/evaluation.py`），`ragas` 备用 |
 
 ---
@@ -181,9 +185,28 @@ python run_qa.py
 python run_api.py
 ```
 
-- 服务地址：`http://localhost:8000`
+- 问答首页：`http://127.0.0.1:8000/`
 - Swagger 文档：`http://localhost:8000/docs`
 - 可观测性看板：`http://localhost:8000/dashboard`
+
+在 Windows PowerShell 中仅允许本机访问，并以 UTF-8 输出启动日志：
+
+```powershell
+$env:API_HOST = "127.0.0.1"
+python -X utf8 run_api.py
+```
+
+---
+
+## 网页问答
+
+完成环境配置和知识库构建后，启动 FastAPI 并访问 [本地问答首页](http://127.0.0.1:8000/)。前端由同一服务提供，无需单独安装 Node.js 或启动静态服务器。
+
+- **开场动画**：螺旋光纤一次性展开为蓝白虹膜，随后虹膜跟随鼠标，每隔约 3 秒眨眼。
+- **教务问答**：在底部输入问题并提交，例如「一等奖学金的绩点要求是多少？」。页面调用 `POST /qa`，启用后端规则校验。
+- **政策引用**：点击答案中的 `[N]`，可定位到对应引用卡片，查看文档名和已识别的章节、条款或表格位置。
+
+直接打开 HTML 或用静态服务器可以预览动画。提交问答需要访问 FastAPI 提供的首页，否则静态服务可能返回 `501`。模型凭据由服务端从本地环境读取。
 
 ---
 
@@ -191,9 +214,10 @@ python run_api.py
 
 | 方法 | 路径 | 说明 |
 |---|---|---|
+| GET | `/` | 浏览器问答首页 |
 | POST | `/qa` | 问答（同步 JSON 响应，含引用、耗时、Token 统计） |
 | POST | `/qa/stream` | 问答（SSE 逐 token 流式输出） |
-| GET | `/health` | 健康检查（Milvus + LLM 双探活，返回 `ok` / `degraded`） |
+| GET | `/health` | 检查 Milvus 集合和 LLM 凭据配置，返回 `ok` / `degraded` |
 | GET | `/dashboard` | 实时可观测性看板（请求明细、平均耗时、兜底率、Token 消耗，10s 自动刷新） |
 | GET | `/api/history` | 请求历史（线程安全环形缓冲，最近 100 条） |
 
@@ -381,13 +405,15 @@ python run_hallucination_eval.py
 
 | 指标 | 优化前（朴素 Prompt） | 优化后（四层机制） | 变化 |
 |---|---|---|---|
-| 数值准确率 | 40.8% | **50.7%** | **+9.9pp** |
-| 表格数值准确率 | 36.1% | **47.0%** | **+10.8pp** |
-| 负样本拒答率 | — | **100%**（8/8） | 全部正确拦截 |
+| 期望数值命中率 | 40.8% | **50.7%** | **+9.9pp** |
+| 表格题期望数值命中率 | 36.1% | **47.0%** | **+10.8pp** |
+| 负样本拒答率 | 100%（8/8） | **100%**（8/8） | 0pp |
+
+数值命中率按期望值字符串匹配统计。两组负样本均经过前置兜底检查。完整结果见 [生成评估报告](docs/eval_results/hallucination/report.md)。
 
 ### 答案溯源
 
-每条结论强制标注 `[N]` 引用编号，后处理映射回真实来源，支持「依据《XX 管理办法》第六条 [1]」格式，用户可一键追溯原始政策文件，提升可信度与可审计性。溯源字段：`source_file` / `doc_title` / `chapter` / `article` / `table_row`。
+提示词要求事实性结论附带 `[N]` 编号，后处理将有效编号映射到参考资料。页面可定位引用卡片，显示 `source_file`、`doc_title`、`chapter`、`article` 和 `table_row`。校验器对参考片段中的数值和条件做规则匹配，政策适用范围仍需结合原文核对。
 
 ---
 
@@ -405,9 +431,9 @@ python run_hallucination_eval.py
 
 - `lifespan` + `run_in_executor` 线程池加载检索链路单例，**避免同步阻塞事件循环**
 - `asyncio.wait_for(future, timeout=120)` 全局超时兜底，超时自动取消 future
-- `/health` 双探活（Milvus collection + LLM 配置），返回 `ok` / `degraded`
+- `/health` 检查 Milvus 集合和 LLM 凭据配置，返回 `ok` / `degraded`，不发起模型请求
 - 流式输出中异常不中断连接，通过 `event: error` 推送
-- 并发下 Token 统计采用**差值法**（流前 / 流后相减），规避全局计数器竞态
+- 流式 Token 统计取共享计数器的前后差值，并发请求可能影响单次请求的统计结果
 
 ### 压测与瓶颈定位
 
@@ -569,6 +595,9 @@ academic-affairs-qa/
 │   ├── vectorstore.py            # Embedding 封装（三级容错）+ Milvus 建库/加载
 │   ├── evaluation.py             # evaluate_recall：双套指标 + 逐题明细
 │   └── versioning.py             # 按学年增量导入 / 重建 / 回滚
+├── frontend/
+│   ├── index.html                # 问答首页
+│   └── static/                   # 样式、虹膜动画和问答交互
 ├── tests/
 │   ├── golden_dataset.jsonl          # 120 题召回评估集
 │   ├── golden_dataset_answer.jsonl   # 答案级评估集（幻觉治理）
