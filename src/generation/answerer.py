@@ -31,6 +31,7 @@ from src.generation.fallback import (
     check_fallback,
     pre_llm_fallback_check,
 )
+from src.generation.graduation_credits import lookup_graduation_total
 from src.generation.llm_client import LLMClient
 from src.generation.verifier import VerificationReport, verify
 
@@ -81,7 +82,8 @@ class Answerer:
         print(result["citations"])   # 解析后的引用映射
     """
 
-    def __init__(self, retriever, llm_client: LLMClient | None = None):
+    def __init__(self, retriever, llm_client: LLMClient | None = None, *,
+                 policy_chunks: list[dict] | None = None):
         """
         参数：
             retriever: 任意支持 .invoke(query) → list[Document] 的检索器
@@ -89,6 +91,36 @@ class Answerer:
         """
         self.retriever = retriever
         self.llm = llm_client or LLMClient()
+        self.policy_chunks = policy_chunks
+
+    def _answer_graduation_total(self, question: str) -> dict | None:
+        if self.policy_chunks is None:
+            return None
+        start = time.perf_counter()
+        found = lookup_graduation_total(question, self.policy_chunks)
+        if found is None:
+            return None
+
+        answer, docs = found
+        timing = {"retrieval_s": round(time.perf_counter() - start, 3)}
+        if not docs:
+            result = self._build_fallback_result(
+                question, docs, FallbackDecision(True, "没有唯一且明确的毕业总学分依据")
+            )
+        else:
+            sources = self._build_citation_sources(docs)
+            result = {
+                "question": question,
+                "answer": answer,
+                "citations": parse_citations(answer, sources),
+                "sources": sources,
+                "context_docs": docs,
+                "verification": None,
+                "fallback": FallbackDecision(False),
+            }
+        result["timing"] = timing
+        result["token_usage"] = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "call_count": 0}
+        return result
 
     def answer(self, question: str, top_k: int = 5, enable_verify: bool = True) -> dict:
         """检索 + 生成带溯源标注的答案 + （可选）原文事实校验 + 兜底判定。
@@ -111,6 +143,9 @@ class Answerer:
                 "token_usage": dict,         # Token 消耗统计
             }
         """
+        direct = self._answer_graduation_total(question)
+        if direct is not None:
+            return direct
         timing = {}  # 各阶段耗时记录
 
         # 1. 检索
@@ -288,6 +323,20 @@ class Answerer:
                 elif event["type"] == "done":
                     print(event["citations"])
         """
+        direct = self._answer_graduation_total(question)
+        if direct is not None:
+            if direct["fallback"].should_fallback:
+                yield {"type": "fallback", "answer": direct["answer"], "reason": direct["fallback"].reason}
+            else:
+                yield {"type": "token", "content": direct["answer"]}
+                yield {
+                    "type": "done",
+                    "answer": direct["answer"],
+                    "citations": direct["citations"],
+                    "timing": direct["timing"],
+                    "token_usage": direct["token_usage"],
+                }
+            return
         timing = {}
 
         # 1. 检索（同步阻塞，放线程池）

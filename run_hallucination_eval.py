@@ -11,7 +11,6 @@
     python run_hallucination_eval.py
 """
 import json
-import re
 import sys
 import time
 from pathlib import Path
@@ -26,7 +25,7 @@ from langchain_core.documents import Document
 from src.generation.answerer import Answerer
 from src.generation.llm_client import LLMClient
 from src.generation.fallback import FALLBACK_MESSAGE, pre_llm_fallback_check
-from src.generation.verifier import verify
+from src.generation.verifier import matches_condition, matches_value, verify
 from src.retrieval.bm25_retriever import BM25Retriever
 from src.retrieval.fusion import HybridRetriever
 from src.retrieval.reranker import RerankRetriever, SiliconFlowReranker
@@ -62,38 +61,25 @@ def load_answer_dataset(path: str = "tests/golden_dataset_answer.jsonl") -> list
     return dataset
 
 
-def build_retriever():
+def build_retriever(bm25_retriever: BM25Retriever | None = None):
     """构建生产检索链路。"""
     vec_store = load_vector_store()
     vec_retriever = vec_store.as_retriever(search_kwargs={"k": 10})
-    bm25_retriever = BM25Retriever()
+    if bm25_retriever is None:
+        bm25_retriever = BM25Retriever()
     hybrid = HybridRetriever(vec_retriever, bm25_retriever, fusion="rrf", k=60)
     reranker = SiliconFlowReranker()
     return RerankRetriever(hybrid, reranker, fetch_k=10, top_k=5, max_per_source=2)
 
 
-def normalize(s: str) -> str:
-    """归一化字符串，便于比对。"""
-    s = re.sub(r"\s+", "", s)
-    s = s.translate(str.maketrans("０１２３４５６７８９．％，。；：", "0123456789.%.,;:"))
-    return s
-
-
 def check_value_in_answer(value: str, answer: str) -> bool:
-    """检查期望数值是否出现在答案中（归一化后匹配）。"""
-    return normalize(value) in normalize(answer)
+    """检查期望数值及其限定范围是否出现在答案中。"""
+    return matches_value(value, answer)
 
 
 def check_condition_in_answer(condition: str, answer: str) -> bool:
-    """检查期望条件是否在答案中被提及（核心关键词匹配）。"""
-    # 提取核心关键词（去除标点、数字，保留中文）
-    core = re.sub(r"[^\u4e00-\u9fff]", "", condition)
-    if len(core) < 2:
-        return True  # 太短的条件跳过（如"无"）
-    # 核心关键词至少 60% 出现在答案中
-    core_chars = list(core)
-    matched = sum(1 for c in core_chars if c in answer)
-    return matched / len(core_chars) >= 0.6
+    """检查期望条件是否在相同肯否语境中出现。"""
+    return matches_condition(condition, answer)
 
 
 def run_naive_answer(question: str, docs: list[Document], llm: LLMClient) -> str:
@@ -224,9 +210,10 @@ def main():
 
     # 初始化
     print("\n加载检索链路...")
-    retriever = build_retriever()
+    bm25_retriever = BM25Retriever()
+    retriever = build_retriever(bm25_retriever)
     llm = LLMClient()
-    answerer = Answerer(retriever, llm)
+    answerer = Answerer(retriever, llm, policy_chunks=bm25_retriever.chunks)
 
     # 逐题评估
     results = []
@@ -365,8 +352,8 @@ def _generate_report(summary: dict, pos_results: list, neg_results: list, output
         "",
         "## 指标说明",
         "",
-        "- **数值准确率**: expected_values 在答案中的命中率（归一化后字符串匹配）",
-        "- **条件覆盖率**: expected_conditions 在答案中的覆盖率（核心关键词 60% 匹配）",
+        "- **数值准确率**: expected_values 在答案中的命中率（匹配数值边界及标注的单位、专业和字段）",
+        "- **条件覆盖率**: expected_conditions 在答案中的覆盖率（连续短语和肯否语境匹配）",
         "- **综合幻觉率**: (缺失值 + 缺失条件 + C3 校验幻觉数) / 总检查项",
         "- **负样本拒答率**: 负样本正确触发兜底的比例",
         "- **表格数值准确率**: 仅表格类问题的数值准确率",

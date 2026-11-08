@@ -56,7 +56,8 @@ def _build_retriever():
     bm25_retriever = BM25Retriever()
     hybrid = HybridRetriever(vec_retriever, bm25_retriever, fusion="rrf", k=60)
     reranker = SiliconFlowReranker()
-    return RerankRetriever(hybrid, reranker, fetch_k=10, top_k=5, max_per_source=2)
+    retriever = RerankRetriever(hybrid, reranker, fetch_k=10, top_k=5, max_per_source=2)
+    return retriever, bm25_retriever.chunks
 
 
 # ---------------------------------------------------------------------------
@@ -69,9 +70,9 @@ async def lifespan(app: FastAPI):
     logger.info("正在初始化检索链路...")
     # 检索链路构建是同步阻塞操作，放到线程池执行
     loop = asyncio.get_event_loop()
-    retriever = await loop.run_in_executor(None, _build_retriever)
+    retriever, policy_chunks = await loop.run_in_executor(None, _build_retriever)
     _llm_client = LLMClient()
-    _answerer = Answerer(retriever, _llm_client)
+    _answerer = Answerer(retriever, _llm_client, policy_chunks=policy_chunks)
     logger.info("检索链路初始化完成")
     yield
     _answerer = None

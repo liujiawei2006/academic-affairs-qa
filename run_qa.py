@@ -25,7 +25,7 @@ from src.retrieval.reranker import RerankRetriever, SiliconFlowReranker
 from src.vectorstore import load_vector_store
 
 
-def build_retriever():
+def build_retriever(bm25_retriever: BM25Retriever | None = None):
     """构建生产检索链路：Hybrid(RRF) + Rerank + 文档级去重。
 
     复用现有最终生产配置，确保答案生成基于最好的召回结果。
@@ -37,7 +37,8 @@ def build_retriever():
     vec_retriever = vec_store.as_retriever(search_kwargs={"k": 10})
 
     # BM25 路
-    bm25_retriever = BM25Retriever()
+    if bm25_retriever is None:
+        bm25_retriever = BM25Retriever()
 
     # 混合检索（RRF 融合）
     hybrid = HybridRetriever(vec_retriever, bm25_retriever, fusion="rrf", k=60)
@@ -56,9 +57,10 @@ def build_retriever():
 
 
 def main():
-    retriever = build_retriever()
+    bm25_retriever = BM25Retriever()
+    retriever = build_retriever(bm25_retriever)
     llm = LLMClient()
-    answerer = Answerer(retriever, llm)
+    answerer = Answerer(retriever, llm, policy_chunks=bm25_retriever.chunks)
 
     print("\n" + "=" * 60)
     print("教务政策问答系统（DeepSeek 版）")

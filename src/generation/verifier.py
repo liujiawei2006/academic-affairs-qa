@@ -8,7 +8,7 @@
 设计原则：
 - 不追求完全精确（模型可能改写数值表述），只抓明显编造
 - 数值用正则抽取 + 归一化后比对
-- 条件项用关键词匹配
+- 条件项匹配连续短语及其肯否语境
 - 返回校验报告，不阻断回答输出
 """
 import re
@@ -76,34 +76,20 @@ _VALUE_PATTERNS = [
     # 百分比：不超过X%
     (r"不超过\s*(\d+)\s*%", "percent_max"),
     # 金额：2000元, 25元每小时 等
-    (r"(\d+)\s*元", "money"),
+    (r"(\d+(?:\.\d+)?)\s*元(?!\s*每\s*小时)", "money"),
     # 学分：160学分, 21学分 等
-    (r"(\d+)\s*学分", "credit"),
+    (r"(\d+(?:\.\d+)?)\s*学分", "credit"),
     # 人数：35人, 19人 等
     (r"(\d+)\s*人", "people"),
     # 题数/分值：20个, 2分, 100分 等
     (r"(\d+)\s*(?:个|道|题)", "count"),
     (r"(\d+\.?\d*)\s*分", "score"),
     # 日期：2026年, 8月31日 等
-    (r"(\d{4})\s*年", "year"),
+    (r"(?<!\d)(\d{4})\s*年", "year"),
     (r"(\d{1,2})\s*月\s*(\d{1,2})\s*日", "date"),
     # 工时：25元每小时
-    (r"(\d+)\s*元\s*每\s*小时", "hourly_rate"),
+    (r"(\d+(?:\.\d+)?)\s*元\s*每\s*小时", "hourly_rate"),
 ]
-
-
-def extract_values_from_text(text: str) -> list[tuple[str, str]]:
-    """从文本中抽取数值及其类型。
-
-    返回 [(数值字符串, 类型), ...]
-    """
-    results = []
-    for pattern, vtype in _VALUE_PATTERNS:
-        for m in re.finditer(pattern, text):
-            # 取完整匹配（包含上下文）作为 claim
-            full_match = m.group(0)
-            results.append((full_match, vtype))
-    return results
 
 
 def normalize_value(value_str: str) -> str:
@@ -123,6 +109,89 @@ def normalize_value(value_str: str) -> str:
     return value_str
 
 
+_CREDIT_MAJORS = re.compile(r"计算机科学与技术|软件工程|网络工程|数字媒体技术")
+_CREDIT_FIELDS = re.compile(
+    r"第二课堂|专业必修|专业选修|学科基础|通识|实践教学|辅修|毕业|总学分"
+)
+_SENTENCE_BREAK = re.compile(r"[。；;！？!?\n]")
+# “两专业毕业总学分相同，均为 166 学分”中的后半句沿用前面的范围。
+_CLAUSE_BREAK = re.compile(r"[，,](?!\s*(?:均为|同为|都是|均需|各为))")
+_CITATION = re.compile(r"\[(\d+)\]")
+_NEGATION = re.compile(r"(?:并非|不是|不需要|不必|无需|无须|不用|不得|不能|没有|未曾|未|不|无)$")
+
+
+def _credit_scope(text: str) -> tuple[set[str], str]:
+    fields = _CREDIT_FIELDS.findall(text)
+    field = fields[-1] if fields else ""
+    return set(_CREDIT_MAJORS.findall(text)), "毕业" if field == "总学分" else field
+
+
+def _scoped_clauses(sentence: str):
+    previous_majors = set()
+    for clause in _CLAUSE_BREAK.split(_CITATION.sub("", sentence)):
+        yield normalize_value(clause), previous_majors
+        named_majors = set(_CREDIT_MAJORS.findall(clause))
+        if named_majors:
+            previous_majors = named_majors if len(named_majors) == 1 else set()
+
+
+def matches_value(value: str, text: str, *, source_file: str = "", heading: str = "",
+                  negated: bool = False) -> bool:
+    """按数值边界匹配；带专业或字段的学分必须在对应语境中出现。"""
+    value = normalize_value(value)
+    if not value:
+        return False
+    majors, field = set(), ""
+    credit = re.fullmatch(r"(.*?)(\d+(?:\.\d+)?学分)", value)
+    if credit:
+        majors, field = _credit_scope(credit[1])
+        if majors or field:
+            value = credit[2]
+
+    pattern = re.escape(value)
+    if value[0].isdigit():
+        pattern = r"(?<!\d)(?<!\d\.)" + pattern
+    if value[-1].isdigit():
+        pattern += r"(?!\d|\.\d)"
+    if value.endswith("元"):
+        pattern += r"(?!每小时)"
+
+    source_majors, _ = _credit_scope(source_file)
+    _, source_field = _credit_scope(heading)
+    supported_majors = set()
+    pattern = re.compile(pattern)
+    for sentence in _SENTENCE_BREAK.split(text):
+        for clause, previous_majors in _scoped_clauses(sentence):
+            for match in pattern.finditer(clause):
+                prefix = clause[:match.start()]
+                if bool(_NEGATION.search(prefix)) != negated:
+                    continue
+                if not (majors or field):
+                    return True
+                local_majors, local_field = _credit_scope(prefix)
+                if field and field != (local_field or source_field):
+                    continue
+                if not majors:
+                    return True
+                supported_majors.update(local_majors or previous_majors or source_majors)
+    return bool(majors) and majors <= supported_majors
+
+
+def matches_condition(condition: str, text: str) -> bool:
+    condition = normalize_value(condition)
+    if not condition:
+        return False
+    pattern = re.escape(condition)
+    if condition[-1].isdigit():
+        pattern += r"(?!\d|\.\d)"
+    for sentence in _SENTENCE_BREAK.split(_CITATION.sub("", text)):
+        sentence = normalize_value(sentence)
+        for match in re.finditer(pattern, sentence):
+            if not _NEGATION.search(sentence[:match.start()]):
+                return True
+    return False
+
+
 # ---------------------------------------------------------------------------
 # 条件项抽取
 # ---------------------------------------------------------------------------
@@ -130,7 +199,7 @@ def normalize_value(value_str: str) -> str:
 # 条件关键词（教务政策高频条件）
 _CONDITION_KEYWORDS = [
     "不及格", "挂科", "处分", "违纪", "贫困认定", "有效期",
-    "前三位", "第一作者", "自主上报", "带公章", "公示",
+    "前三位", "第一作者", "自主上报", "带公章", "公示", "通过资格审核",
     r"前\d+%", r"不低于\s*\d+", r"不超过\s*\d+",
 ]
 
@@ -142,7 +211,7 @@ def extract_conditions_from_text(text: str) -> list[str]:
     """
     found = []
     # 先去除引用标注，避免干扰匹配
-    clean_text = re.sub(r"\[\d+\]", "", text)
+    clean_text = _CITATION.sub("", text)
     for kw in _CONDITION_KEYWORDS:
         for m in re.finditer(kw, clean_text):
             # 提取关键词及其短上下文（前后各 5 字）
@@ -171,75 +240,30 @@ def verify(
     返回：
         VerificationReport 校验报告
     """
-    # 合并所有 context 文本
-    all_context_text = "\n".join(doc.page_content for doc in context_docs)
-    all_context_norm = normalize_value(all_context_text)
-
     checks: list[ClaimCheck] = []
-
-    # 1. 数值校验：从答案中抽取数值，回原文查找
-    answer_values = extract_values_from_text(answer)
-    for value_str, vtype in answer_values:
-        value_norm = normalize_value(value_str)
-        # 在原文中查找（归一化后匹配）
-        if value_norm in all_context_norm:
-            # 找到原文片段（用归一化文本截取，避免索引错位）
-            idx = all_context_norm.find(value_norm)
-            snippet = all_context_norm[max(0, idx - 20):idx + len(value_norm) + 20]
-            checks.append(ClaimCheck(
-                claim_text=value_str,
-                claim_type="value",
-                matched=True,
-                matched_context=snippet,
-            ))
-        else:
-            # 尝试宽松匹配（只比核心数字）
-            core_number = re.sub(r"[^\d.]", "", value_str)
-            if core_number and core_number in all_context_text:
-                checks.append(ClaimCheck(
-                    claim_text=value_str,
-                    claim_type="value",
-                    matched=True,
-                    matched_context=f"（宽松匹配：数字 {core_number} 存在于原文）",
-                    confidence="medium",
-                ))
-            else:
-                checks.append(ClaimCheck(
-                    claim_text=value_str,
-                    claim_type="value",
-                    matched=False,
-                ))
-
-    # 2. 条件项校验：从答案中抽取条件关键词，回原文查找
-    answer_conditions = extract_conditions_from_text(answer)
-    # 预计算：去除引用标注后的归一化 context（循环外一次性计算）
-    all_context_norm_clean = normalize_value(
-        re.sub(r"\[\d+\]", "", all_context_text)
-    )
-    for cond in answer_conditions:
-        cond_norm = normalize_value(cond)
-        if cond_norm in all_context_norm_clean:
-            checks.append(ClaimCheck(
-                claim_text=cond,
-                claim_type="condition",
-                matched=True,
-            ))
-        else:
-            # 宽松：只要核心关键词在就算通过
-            core_kw = re.sub(r"[^\u4e00-\u9fff\w]", "", cond)
-            if core_kw and len(core_kw) >= 2 and core_kw in all_context_text:
-                checks.append(ClaimCheck(
-                    claim_text=cond,
-                    claim_type="condition",
-                    matched=True,
-                    confidence="medium",
-                ))
-            else:
-                checks.append(ClaimCheck(
-                    claim_text=cond,
-                    claim_type="condition",
-                    matched=False,
-                ))
+    for sentence in _SENTENCE_BREAK.split(answer):
+        indices = {int(i) for i in _CITATION.findall(sentence)}
+        docs = [doc for i, doc in enumerate(context_docs, 1) if not indices or i in indices]
+        for clause, previous_majors in _scoped_clauses(sentence):
+            for pattern, vtype in _VALUE_PATTERNS:
+                for match in re.finditer(pattern, clause):
+                    value = match[0]
+                    prefix = clause[:match.start()]
+                    majors, field = _credit_scope(prefix) if vtype == "credit" else (set(), "")
+                    if vtype == "credit" and not majors:
+                        majors = previous_majors
+                    # 同一个数值可能适用于多个专业，每个专业都需要自己的证据。
+                    matched = all(any(
+                        matches_value(major + field + value, doc.page_content,
+                                      source_file=doc.metadata.get("source_file", ""),
+                                      heading=doc.metadata.get("heading_path", ""),
+                                      negated=bool(_NEGATION.search(prefix)))
+                        for doc in docs
+                    ) for major in majors or {""})
+                    checks.append(ClaimCheck(value, "value", matched))
+            for cond in extract_conditions_from_text(clause):
+                matched = any(matches_condition(cond, doc.page_content) for doc in docs)
+                checks.append(ClaimCheck(cond, "condition", matched))
 
     # 3. 统计
     hallucination_count = sum(1 for c in checks if not c.matched)
