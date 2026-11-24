@@ -102,7 +102,7 @@ def normalize_value(value_str: str) -> str:
     """
     # 全角转半角
     value_str = value_str.translate(
-        str.maketrans("０１２３４５６７８９．％", "0123456789.%")
+        str.maketrans("．％", ".%")
     )
     # 去除空白
     value_str = re.sub(r"\s+", "", value_str)
