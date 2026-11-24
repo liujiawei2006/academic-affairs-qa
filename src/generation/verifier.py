@@ -105,8 +105,7 @@ def normalize_value(value_str: str) -> str:
         str.maketrans("０１２３４５６７８９．％", "0123456789.%")
     )
     # 去除空白
-    value_str = re.sub(r"\s+", "", value_str)
-    return value_str
+    return re.sub(r"\s+", "", value_str)
 
 
 _CREDIT_MAJORS = re.compile(r"计算机科学与技术|软件工程|网络工程|数字媒体技术")
