@@ -100,6 +100,9 @@ def normalize_value(value_str: str) -> str:
     - 统一全角→半角
     - 保留核心数字
     """
+    from unicodedata2 import normalize
+
+    value_str = normalize("NFC", value_str)
     # 全角转半角
     value_str = value_str.translate(
         str.maketrans("０１２３４５６７８９．％", "0123456789.%")
